@@ -4,9 +4,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { RingLoader } from 'react-spinners';
 import { auth } from "../firebase/index";
 
@@ -17,12 +15,12 @@ const useAuthContext = () => {
 
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true)
-  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
 
   const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+
+    return createUserWithEmailAndPassword (auth, email, password)
+  }
 
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
@@ -30,15 +28,8 @@ const AuthContextProvider = ({ children }) => {
 
   const logout = async () => {
     await signOut(auth);
-    navigate('/login')
   };
 
-  const setDisplayName = (name) => {
-    if (currentUser)
-      return updateProfile(currentUser, {
-        displayName: name,
-      });
-  };
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -54,12 +45,15 @@ const AuthContextProvider = ({ children }) => {
     login,
     logout,
     signup,
-    setDisplayName,
   }
 
   return (
     <AuthContext.Provider value ={values}>
-      {isLoading && <RingLoader />}
+     	{isLoading && (
+				<div className="center">
+					<RingLoader color={"#aa8a0b"} size={50} />
+				</div>
+			)}
       {!isLoading && children}
     </AuthContext.Provider>
   );

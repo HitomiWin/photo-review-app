@@ -1,1 +1,42 @@
+$theme-colors: (
+  "info": #fff,
+  "secondary": #707070,
+  "danger": #f79592,
+  "success": #0c570c,
+  "warning": #344648,
+  "primary": #132744,
+  "light": #aa8a0b,
+  "dark": #000000,
+);
+
 @import "bootstrap/scss/bootstrap";
+
+body {
+  background-color: #132744;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 0.5em;
+}
+
+.color-yellow {
+  color:#aa8a0b
+}
+.color-gray {
+  color:#707070,
+}
+
+.center {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+
+
