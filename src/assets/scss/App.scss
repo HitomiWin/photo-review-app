@@ -10,6 +10,8 @@ $theme-colors: (
 );
 
 @import "bootstrap/scss/bootstrap";
+@import "dropzone";
+// @import "masonry";
 
 body {
   background-color: #132744;
@@ -23,13 +25,14 @@ h5,
 h6,
 p {
   margin-bottom: 0.5em;
+  color:#D8D0CF;
 }
 
 .color-yellow {
   color:#aa8a0b
 }
 .color-gray {
-  color:#707070,
+  color:#D8D0CF;
 }
 
 .center {

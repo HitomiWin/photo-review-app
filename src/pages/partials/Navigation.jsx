@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -21,7 +21,28 @@ const Navigation = () => {
           <Nav className="ms-auto">
             {currentUser ? (
               <>
-                <NavLink to="/" className="nav-link text-info ">
+               <NavDropdown
+                  title={
+                   currentUser.email.substring(0, currentUser.email.indexOf("@"))
+                  }
+                  id="basic-nav-dropdown"
+                >
+                  <NavLink to="/" className="dropdown-item">
+                    My Alubms
+                  </NavLink>
+                  <NavLink to="/customer-review-albums" className="dropdown-item">
+                    Cunstomer Review
+                  </NavLink>
+                  <NavLink to="/create-album" className="dropdown-item">
+                    Create Album
+                  </NavLink>
+                  
+                  <NavDropdown.Divider />
+                  <NavLink to="/logout" className="dropdown-item ">
+                    Log Out
+                  </NavLink>
+                </NavDropdown>
+                {/* <NavLink to="/" className="nav-link text-info ">
                   My Albums
                 </NavLink>
                 <NavLink to="/customer-review-albums" className="nav-link text-info">
@@ -33,7 +54,7 @@ const Navigation = () => {
                 <Navbar.Text className="ms-2">
                 <FontAwesomeIcon icon={faUser} size="lg" />{" "}
                   {currentUser.email.substring(0, currentUser.email.indexOf("@"))}
-                </Navbar.Text>
+                </Navbar.Text> */}
               </>
             ) : (
               <>
