@@ -17,10 +17,10 @@ const LoginPage = () => {
     try {
       setIsLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/")
-    }catch(e){
+      navigate("/");
+    } catch (e) {
       setError(e.message);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -39,7 +39,7 @@ const LoginPage = () => {
               <Form onSubmit={handleSubmit}>
                 <Form.Group id="email" className="mb-3 text-secondary">
                   <Form.Label>Email</Form.Label>
-          ref={emailRef} required          <Form.Control type="email"/>
+                  <Form.Control type="email" ref={emailRef} required />
                 </Form.Group>
 
                 <Form.Group id="password" className="mb-3 text-secondary">
