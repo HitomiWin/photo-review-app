@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter } from 'react-router-dom'
+import SimpleReactLightbox from 'simple-react-lightbox'
 import AuthContextProvider from './contexts/AuthContext'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/scss/App.scss'
@@ -23,9 +24,11 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthContextProvider>
+          <SimpleReactLightbox>
           
-          <App />
+            <App />
 
+          </SimpleReactLightbox>
         </AuthContextProvider>
       </BrowserRouter>
     </QueryClientProvider>

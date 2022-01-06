@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
 import { useAuthContext } from '../contexts/AuthContext'
@@ -13,7 +13,7 @@ const useUploadImage = () => {
   const { currentUser } = useAuthContext()
 
 
-  const mutate = async (image)=>{
+  const mutate = async (image, id)=>{
     setError(null)
     setIsError(null)
     setIsSuccess(null)
@@ -52,7 +52,7 @@ const useUploadImage = () => {
       //get downoad url to upladed image from storage
       const url = await getDownloadURL(storageRef)
 
-      const collectionRef = collection(db, 'albums', "album")
+      const collectionRef = collection(db, 'albums', id, "images")
 
       // create document in db for the uploaded image
       await addDoc(collectionRef, {
@@ -76,8 +76,18 @@ const useUploadImage = () => {
       setIsSuccess(false)
     }
     
-
   }
+
+  useEffect(()=>{
+    return ()=>{
+      setError(null)
+      setIsError(null)
+      setIsSuccess(null)
+      setIsMutating(true)
+      setProgress(null)
+    }
+  },[])
+
   return {
     error,
     isError,

@@ -1,16 +1,14 @@
 import { useState } from 'react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { useAuthContext } from '../contexts/AuthContext'
-import { db, storage } from '../firebase'
+import { db } from '../firebase'
 
  const useCreateAlbum = (name) => {
   const [error, setError] = useState(null);
   const [isError, setIsError] = useState(null);
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
-  const [progress, setProgress] = useState(null)
   const { currentUser } = useAuthContext()
-
 
   const mutate = async (name)=>{
     setError(null)
@@ -19,16 +17,12 @@ import { db, storage } from '../firebase'
     setIsMutating(true)
 
     try{
-     
       const collectionRef = collection(db, 'albums')
-
-      // create document in db for the uploaded image
       await addDoc(collectionRef, {
         created: serverTimestamp(),
         name,
         owner:currentUser.uid,
       })
-
       //Success
       setIsSuccess(true)
       setIsMutating(false)
@@ -47,7 +41,6 @@ import { db, storage } from '../firebase'
     isMutating,
     isSuccess,
     mutate,
-    progress,
   }
 }
 

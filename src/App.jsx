@@ -34,7 +34,7 @@ function App() {
             }
           />
           <Route
-            path="create-album"
+            path="upload-image/:id"
             element={
               <RequireAuth redirectTo="/login">
                 <UploadImagePage />

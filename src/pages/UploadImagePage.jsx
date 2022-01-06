@@ -1,24 +1,31 @@
 import React, { useCallback } from "react";
+import { useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImages } from "@fortawesome/free-solid-svg-icons";
+import { Alert, ProgressBar } from "react-bootstrap";
+import { RingLoader } from "react-spinners";
 
+import useGetAlbum from "../hooks/useGetAlbum";
 import useUploadImage from "../hooks/useUploadImage";
+import ImageList from "../components/ImageList"
 
 const UploadImagePage = () => {
   const uploadImage = useUploadImage();
+  const { id } = useParams();
+  const albumQuery = useGetAlbum(id);
 
   //https://react-dropzone.js.org/
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    (acceptedFiles, e) => {
       if (!acceptedFiles.length) {
         return;
       }
       acceptedFiles.forEach((file) => {
-        uploadImage.mutate(file);
+        uploadImage.mutate(file, id);
       });
     },
-    [uploadImage]
+    [uploadImage, id]
   );
 
   const {
@@ -32,10 +39,23 @@ const UploadImagePage = () => {
     onDrop,
   });
 
+  if (albumQuery.isLoading) {
+    return (
+      <div className="center">
+        <RingLoader color={"#aa8a0b"} size={50} />
+      </div>
+    );
+  }
+
+  if (!albumQuery.data) {
+    return <Alert variant="danger">Sorry, AlbumId :{id} is not found</Alert>;
+  }
+
   return (
     <>
-
-      <h4 className="text-center">Upload Images</h4>
+      <h4 className="text-center mt-3">
+        Upload Images : {albumQuery.data?.name}{" "}
+      </h4>
       <div
         {...getRootProps()}
         id="dropzone-wrapper"
@@ -58,7 +78,18 @@ const UploadImagePage = () => {
             </div>
           )}
         </div>
+        {uploadImage.progress !== null && (
+          <ProgressBar variant="success" animated now={uploadImage.progress} />
+        )}
+
+        {uploadImage.isError && (
+          <Alert variant="danger">{uploadImage.error}</Alert>
+        )}
+        {uploadImage.isSuccess && (
+          <Alert variant="success">Uploaded the files successflly </Alert>
+        )}
       </div>
+      <ImageList albumId={id} />
     </>
   );
 };
