@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Card, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare as noCheckedBox } from "@fortawesome/free-regular-svg-icons";
 import useDeleteImage from "../../hooks/useDeleteImage";
 
-const ImageCard = ({ albumId, image }) => {
+const ImageCard = ({ albumId, image, checkedList, setCheckedList }) => {
   const [checked, setChecked] = useState(false);
   const deleteImage = useDeleteImage(image);
   const handleDeleteImageClick = (e) => {
     e.stopPropagation();
     deleteImage.mutate(albumId, image._id);
+  };
+
+useEffect(() => {
+  setCheckedList((state) => [...state, { id: image._id, checked: false }]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+
+  const toggleChecked = () => {
+    setChecked(!checked);
+    let updatedList = checkedList.map((item) => {
+      if (item.id === image._id) {
+        console.log("Find id")
+        return { ...item, checked: !item.checked };
+      }
+      return item
+    });
+
+    setCheckedList(updatedList);
   };
 
   return (
@@ -22,14 +40,15 @@ const ImageCard = ({ albumId, image }) => {
           <Card.Header>
             <span title={image.name}>{image.name}</span>
             <div className="card-actions">
-              <Button
-                variant="info"
-                onClick={()=>setChecked(!checked)}
-              >
+              <Button variant="info" onClick={toggleChecked}>
                 {checked ? (
-                  <FontAwesomeIcon icon={faCheckSquare} color="#aa8a0b" size="lg"/>
+                  <FontAwesomeIcon
+                    icon={faCheckSquare}
+                    color="#aa8a0b"
+                    size="lg"
+                  />
                 ) : (
-                  <FontAwesomeIcon icon={noCheckedBox}  size="lg" />
+                  <FontAwesomeIcon icon={noCheckedBox} size="lg" />
                 )}
               </Button>
               <Button
@@ -38,7 +57,7 @@ const ImageCard = ({ albumId, image }) => {
                 disabled={deleteImage.isMutating}
                 onClick={handleDeleteImageClick}
               >
-                <FontAwesomeIcon icon={faTrashAlt}  size="lg"/>
+                <FontAwesomeIcon icon={faTrashAlt} size="lg" />
               </Button>
             </div>
           </Card.Header>
