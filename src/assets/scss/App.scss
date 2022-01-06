@@ -34,12 +34,17 @@ p {
 .color-gray {
   color:#D8D0CF;
 }
+.color-blue {
+  color:#132744
+}
 
 .center {
   display: grid;
   place-items: center;
   height: 100vh;
 }
-
+.text-button:hover{
+  color:#aa8a0b
+}
 
 

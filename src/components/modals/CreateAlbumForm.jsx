@@ -1,11 +1,9 @@
 import React, { useRef } from "react";
 import { Button, Modal, Form, Alert } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
 import { FadeLoader } from "react-spinners";
 import useCreateAlbum from "../../hooks/useCreateAlbum";
 
 const CreateAlbumForm = ({show, onHide}) => {
-  const navigate = useNavigate();
   const nameRef = useRef(null)
   const query = useCreateAlbum();
 
@@ -32,21 +30,18 @@ const CreateAlbumForm = ({show, onHide}) => {
         show={show} 
         aria-labelledby="contained-modal-title-vcenter"
         centered>
-        <Modal.Header>
-          <Modal.Title className="text-center">Give your album a name</Modal.Title>
-        </Modal.Header>
+          <h4 className="text-center mt-3 color-blue ">Give your album a name</h4>
         {query.isError && <Alert>{query.error}</Alert>}
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>name</Form.Label>
-            <Form.Control type="text" placeholder="Give your album a name"  ref={nameRef} required />
+          <Form.Group className="m-3">
+            <Form.Control type="text" placeholder="name"  ref={nameRef} required />
           </Form.Group>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => navigate(-1)}>
+          <Button variant="secondary" onClick={() => onHide(true)}>
             Cancel
           </Button>
           <Button variant="primary" type="submit" >
-            Save Changes
+            Save
           </Button>
         </Modal.Footer>
         </Form>
