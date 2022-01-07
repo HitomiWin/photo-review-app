@@ -23,13 +23,12 @@ const useCreateAlbumWithImages = () => {
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
   const uuid = uuidv4()
-  const uuid2 = uuid
   const {
     currentUser
   } = useAuthContext()
 
-  const mutate = async (name, imageIdList) => {
-    console.log(imageIdList)
+  const mutate = async (name, updateList) => {
+    console.log(updateList)
     setError(null)
     setIsError(null)
     setIsSuccess(null)
@@ -41,13 +40,13 @@ const useCreateAlbumWithImages = () => {
         name,
         owner: currentUser.uid,
       })
-      await setDoc(doc(db, 'albums', uuid2), {
-        created: serverTimestamp(),
-        albumId: uuid,
-        name,
-        owner: currentUser.uid,
-      })
 
+      await updateList.forEach((image) => {
+        setDoc(doc(db, 'albums', uuid, "images", image._id), {
+          ...image,
+          image_id: null
+        })
+      })
       //Success
       setIsSuccess(true)
       setIsMutating(false)
@@ -57,9 +56,8 @@ const useCreateAlbumWithImages = () => {
       setIsMutating(false)
       setIsSuccess(false)
     }
-
-
   }
+
   return {
     error,
     isError,

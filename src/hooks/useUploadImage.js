@@ -3,6 +3,8 @@ import {
   useEffect
 } from 'react'
 import {
+  addDoc,
+  collection,
   setDoc,
   doc,
   serverTimestamp
@@ -75,10 +77,9 @@ const useUploadImage = () => {
       const url = await getDownloadURL(storageRef)
 
       // create document in db for the uploaded image
-      await setDoc(doc(db, "images", uuid), {
+      await addDoc(collection(db, "albums", id, "images"), {
         created: serverTimestamp(),
         name: image.name,
-        albumId: id,
         owner: currentUser.uid,
         path: storageRef.fullPath,
         size: image.size,

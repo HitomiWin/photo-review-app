@@ -1,19 +1,20 @@
 import React, { useRef } from "react";
 import { Button, Modal, Form, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 import useCreateAlbumWithImages from "../../hooks/useCreateAlbumWithImages";
 
 const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
-  let imageIdList = imageList
+  const navigate = useNavigate();
+  let updateList = imageList
     .filter((image) => image.checked === true)
-    .map(({ id }) => id);
-  console.log(imageIdList);
+    .map(({ image }) => image);
   const nameRef = useRef(null);
   const query = useCreateAlbumWithImages();
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      query.mutate(nameRef.current.value, imageIdList);
+      query.mutate(nameRef.current.value, updateList);
       onHide(true);
     } catch (e) {
       console.log(e);
@@ -30,6 +31,9 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
         margin={2}
       />
     );
+  }
+  if (query.isSuccess) {
+    navigate("/");
   }
 
   return (

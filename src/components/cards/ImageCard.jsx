@@ -14,7 +14,7 @@ const ImageCard = ({ albumId, image, checkedList, setCheckedList }) => {
   };
 
   useEffect(() => {
-    setCheckedList((state) => [...state, { id: image._id, checked: false }]);
+    setCheckedList((state) => [...state, { image, checked: false }]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -25,9 +25,9 @@ const ImageCard = ({ albumId, image, checkedList, setCheckedList }) => {
   // }, [deleteImage]);
 
   const toggleChecked = () => {
-    setChecked(!checked); // to change button color
+    setChecked(!checked); // to change buttons color
     let updatedList = checkedList.map((item) => {
-      if (item.id === image._id) {
+      if (item.image._id === image._id) {
         return { ...item, checked: !item.checked };
       }
       return item;
