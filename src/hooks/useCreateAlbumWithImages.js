@@ -2,10 +2,8 @@ import {
   useState
 } from 'react'
 import {
-  collection,
   doc,
   setDoc,
-  addDoc,
   serverTimestamp
 } from 'firebase/firestore'
 import {
@@ -14,12 +12,18 @@ import {
 import {
   db
 } from '../firebase'
+import {
+  v4 as uuidv4
+} from 'uuid'
+
 
 const useCreateAlbumWithImages = () => {
   const [error, setError] = useState(null);
   const [isError, setIsError] = useState(null);
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
+  const uuid = uuidv4()
+  const uuid2 = uuid
   const {
     currentUser
   } = useAuthContext()
@@ -32,15 +36,18 @@ const useCreateAlbumWithImages = () => {
     setIsMutating(true)
 
     try {
-      const collectionRef = collection(db, 'albums')
-      await setDoc(doc(db, "albums"), {
+      await setDoc(doc(db, 'albums', uuid), {
         created: serverTimestamp(),
         name,
         owner: currentUser.uid,
-
-      }, "images", {
-        images: imageIdList
       })
+      await setDoc(doc(db, 'albums', uuid2), {
+        created: serverTimestamp(),
+        albumId: uuid,
+        name,
+        owner: currentUser.uid,
+      })
+
       //Success
       setIsSuccess(true)
       setIsMutating(false)

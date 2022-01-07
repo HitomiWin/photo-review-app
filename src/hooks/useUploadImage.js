@@ -3,8 +3,8 @@ import {
   useEffect
 } from 'react'
 import {
-  collection,
-  addDoc,
+  setDoc,
+  doc,
   serverTimestamp
 } from 'firebase/firestore'
 import {
@@ -19,6 +19,9 @@ import {
   db,
   storage
 } from '../firebase'
+import {
+  v4 as uuidv4
+} from "uuid"
 
 const useUploadImage = () => {
   const [error, setError] = useState(null);
@@ -26,6 +29,7 @@ const useUploadImage = () => {
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
   const [progress, setProgress] = useState(null)
+  const uuid = uuidv4()
   const {
     currentUser
   } = useAuthContext()
@@ -70,10 +74,8 @@ const useUploadImage = () => {
       //get downoad url to upladed image from storage
       const url = await getDownloadURL(storageRef)
 
-      const collectionRef = collection(db, 'images')
-
       // create document in db for the uploaded image
-      await addDoc(collectionRef, {
+      await setDoc(doc(db, "images", uuid), {
         created: serverTimestamp(),
         name: image.name,
         albumId: id,
