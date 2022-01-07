@@ -1,26 +1,30 @@
-import { useFirestoreQueryData } from "@react-query-firebase/firestore";
-import { collection, query, orderBy } from "firebase/firestore";
-import { db } from "../firebase";
+import {
+  useFirestoreQueryData
+} from "@react-query-firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy
+} from "firebase/firestore";
+import {
+  db
+} from "../firebase";
 
 
-const useGetAllImages = (id ) => {
+const useGetAllImages = (id) => {
   const imagesRef = collection(db, "albums", id, "images");
   const queryKey = ["images", id];
   const queryRef = query(
     imagesRef,
-    orderBy("created",'desc')
+    orderBy("created", 'desc')
   );
 
   const getImagesQuery = useFirestoreQueryData(
     queryKey,
-    queryRef,
-    {
+    queryRef, {
       idField: "_id",
       subscribe: true,
     },
-    {
-      refetchOnMount: "always",
-    }
   );
 
   return getImagesQuery;

@@ -13,19 +13,24 @@ const ImageCard = ({ albumId, image, checkedList, setCheckedList }) => {
     deleteImage.mutate(albumId, image._id);
   };
 
-useEffect(() => {
-  setCheckedList((state) => [...state, { id: image._id, checked: false }]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+  useEffect(() => {
+    setCheckedList((state) => [...state, { id: image._id, checked: false }]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // useEffect(() => {
+  //   if (deleteImage.isSuccess) {
+  //     console.log("success");
+  //   }
+  // }, [deleteImage]);
 
   const toggleChecked = () => {
-    setChecked(!checked);
+    setChecked(!checked); // to change button color
     let updatedList = checkedList.map((item) => {
       if (item.id === image._id) {
-        console.log("Find id")
         return { ...item, checked: !item.checked };
       }
-      return item
+      return item;
     });
 
     setCheckedList(updatedList);
