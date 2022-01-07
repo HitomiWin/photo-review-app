@@ -22,7 +22,7 @@ const useDeleteImage = () => {
     setIsMutating(true)
     setIsSuccess(false)
     try {
-      await deleteDoc(doc(db, 'albums', albumId, 'images', imageId))
+      await deleteDoc(doc(db, 'images', imageId))
       setIsSuccess(true)
     } catch (e) {
       setError(e.message)

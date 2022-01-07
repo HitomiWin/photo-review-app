@@ -1,16 +1,19 @@
 import React, { useRef } from "react";
 import { Button, Modal, Form, Alert } from "react-bootstrap";
 import { FadeLoader } from "react-spinners";
-import useCreateAlbum from "../../hooks/useCreateAlbum";
+import useCreateAlbumWithImages from "../../hooks/useCreateAlbumWithImages";
 
-const CreateAlbumForm = ({ show, onHide }) => {
+const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
+  let imageIdList = imageList
+    .filter((image) => image.checked === true)
+    .map(({ id }) => id);
+  console.log(imageIdList);
   const nameRef = useRef(null);
-  const query = useCreateAlbum();
-
+  const query = useCreateAlbumWithImages();
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      query.mutate(nameRef.current.value);
+      query.mutate(nameRef.current.value, imageIdList);
       onHide(true);
     } catch (e) {
       console.log(e);
@@ -61,4 +64,4 @@ const CreateAlbumForm = ({ show, onHide }) => {
   );
 };
 
-export default CreateAlbumForm;
+export default CreateAlbumWithImages;

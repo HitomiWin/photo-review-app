@@ -4,7 +4,7 @@ import { FadeLoader } from "react-spinners";
 import useGetAllImages from "../hooks/useGetAllImages";
 import { SRLWrapper } from "simple-react-lightbox";
 import ImageCard from "./cards/ImageCard";
-import CreateAlbumForm from "./modals/CreateAlbumForm";
+import CreateAlbumWithImages from "./modals/CreateAlbumWithImages";
 
 const ImageList = ({ albumId }) => {
   const [checkedList, setCheckedList] = useState([]);
@@ -13,6 +13,7 @@ const ImageList = ({ albumId }) => {
   const query = useGetAllImages(albumId);
 
   useEffect(() => {
+    console.log(checkedList);
     setHasChecked(checkedList.some((item) => item.checked === true));
   }, [checkedList]);
 
@@ -44,9 +45,10 @@ const ImageList = ({ albumId }) => {
             Create New Album
           </Button>
         </div>
-        <CreateAlbumForm
+        <CreateAlbumWithImages
           show={createModalShow}
           onHide={() => setCreateModalShow(false)}
+          imageList={checkedList}
         />
         <SRLWrapper>
           <Row className="justify-content-center">

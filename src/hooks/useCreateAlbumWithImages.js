@@ -3,6 +3,8 @@ import {
 } from 'react'
 import {
   collection,
+  doc,
+  setDoc,
   addDoc,
   serverTimestamp
 } from 'firebase/firestore'
@@ -13,7 +15,7 @@ import {
   db
 } from '../firebase'
 
-const useCreateAlbum = () => {
+const useCreateAlbumWithImages = () => {
   const [error, setError] = useState(null);
   const [isError, setIsError] = useState(null);
   const [isMutating, setIsMutating] = useState(null);
@@ -22,7 +24,8 @@ const useCreateAlbum = () => {
     currentUser
   } = useAuthContext()
 
-  const mutate = async (name) => {
+  const mutate = async (name, imageIdList) => {
+    console.log(imageIdList)
     setError(null)
     setIsError(null)
     setIsSuccess(null)
@@ -30,10 +33,13 @@ const useCreateAlbum = () => {
 
     try {
       const collectionRef = collection(db, 'albums')
-      await addDoc(collectionRef, {
+      await setDoc(doc(db, "albums"), {
         created: serverTimestamp(),
         name,
         owner: currentUser.uid,
+
+      }, "images", {
+        images: imageIdList
       })
       //Success
       setIsSuccess(true)
@@ -56,4 +62,4 @@ const useCreateAlbum = () => {
   }
 }
 
-export default useCreateAlbum
+export default useCreateAlbumWithImages

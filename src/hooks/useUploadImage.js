@@ -1,8 +1,24 @@
-import { useState, useEffect } from 'react'
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
-import { useAuthContext } from '../contexts/AuthContext'
-import { db, storage } from '../firebase'
+import {
+  useState,
+  useEffect
+} from 'react'
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+} from 'firebase/firestore'
+import {
+  ref,
+  getDownloadURL,
+  uploadBytesResumable
+} from 'firebase/storage'
+import {
+  useAuthContext
+} from '../contexts/AuthContext'
+import {
+  db,
+  storage
+} from '../firebase'
 
 const useUploadImage = () => {
   const [error, setError] = useState(null);
@@ -10,16 +26,18 @@ const useUploadImage = () => {
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
   const [progress, setProgress] = useState(null)
-  const { currentUser } = useAuthContext()
+  const {
+    currentUser
+  } = useAuthContext()
 
 
-  const mutate = async (image, id)=>{
+  const mutate = async (image, id) => {
     setError(null)
     setIsError(null)
     setIsSuccess(null)
     setIsMutating(true)
 
-    if(!image instanceof File){
+    if (!image instanceof File) {
       setError("Only file is acceptable")
       setIsError(true)
       setIsMutating(false)
@@ -31,7 +49,7 @@ const useUploadImage = () => {
     // to save path to Firestore need storage path
     const storageFullPath = `images/${currentUser.uid}/${storageFileName}`
 
-    try{
+    try {
       // create a reference in storage to upload inage to
       const storageRef = ref(storage, storageFullPath)
 
@@ -39,11 +57,11 @@ const useUploadImage = () => {
       const uploadTask = uploadBytesResumable(storageRef, image)
 
       // attach upload observer // 1. 'state_changed' observer, called any time the state changes 
-      uploadTask.on("state_changed", (snapshot)=>{
+      uploadTask.on("state_changed", (snapshot) => {
         setProgress(
           Math.round(
             //Rounded  to the first decimal place 
-            (snapshot.bytesTransferred / snapshot.totalBytes)* 1000)/10) 
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 1000) / 10)
       })
 
       // wait for upload to be completed
@@ -52,16 +70,17 @@ const useUploadImage = () => {
       //get downoad url to upladed image from storage
       const url = await getDownloadURL(storageRef)
 
-      const collectionRef = collection(db, 'albums', id, "images")
+      const collectionRef = collection(db, 'images')
 
       // create document in db for the uploaded image
       await addDoc(collectionRef, {
         created: serverTimestamp(),
-        name:image.name,
-        owner:currentUser.uid,
-        path:storageRef.fullPath,
-        size:image.size,
-        type:image.type,
+        name: image.name,
+        albumId: id,
+        owner: currentUser.uid,
+        path: storageRef.fullPath,
+        size: image.size,
+        type: image.type,
         url,
       })
 
@@ -69,24 +88,24 @@ const useUploadImage = () => {
       setProgress(null)
       setIsSuccess(true)
       setIsMutating(false)
-    } catch(e){
+    } catch (e) {
       setError(e.message)
       setIsError(true)
       setIsMutating(false)
       setIsSuccess(false)
     }
-    
+
   }
 
-  useEffect(()=>{
-    return ()=>{
+  useEffect(() => {
+    return () => {
       setError(null)
       setIsError(null)
       setIsSuccess(null)
       setIsMutating(true)
       setProgress(null)
     }
-  },[])
+  }, [])
 
   return {
     error,
