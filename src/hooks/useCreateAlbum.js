@@ -23,6 +23,7 @@ const useCreateAlbum = () => {
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
   const uuid = uuidv4()
+  const uuid2 = uuidv4()
   const {
     currentUser
   } = useAuthContext()
@@ -39,6 +40,7 @@ const useCreateAlbum = () => {
         created: serverTimestamp(),
         name,
         owner: currentUser.uid,
+        linkId: uuid2,
       })
       //Success
       setIsSuccess(true)

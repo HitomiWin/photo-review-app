@@ -16,27 +16,27 @@ const Navigation = () => {
           </span>
           My Photo Gallery
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" variant="light"/>
-        <Navbar.Collapse id="basic-navbar-nav"  >
+        <Navbar.Toggle aria-controls="basic-navbar-nav" variant="light" />
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {currentUser ? (
               <>
-               <NavDropdown
-                  title={
-                   currentUser.email.substring(0, currentUser.email.indexOf("@"))
-                  }
+                <NavDropdown
+                  title={currentUser.email.substring(
+                    0,
+                    currentUser.email.indexOf("@")
+                  )}
                   id="basic-nav-dropdown"
                 >
                   <NavLink to="/" className="dropdown-item">
                     My Alubms
                   </NavLink>
-                  <NavLink to="/customer-review-albums" className="dropdown-item">
+                  <NavLink
+                    to="/customer-review-albums"
+                    className="dropdown-item"
+                  >
                     Cunstomer Review
                   </NavLink>
-                  <NavLink to="/create-album" className="dropdown-item">
-                    Create Album
-                  </NavLink>
-                  
                   <NavDropdown.Divider />
                   <NavLink to="/logout" className="dropdown-item ">
                     Log Out
