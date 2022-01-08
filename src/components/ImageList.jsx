@@ -12,7 +12,6 @@ const ImageList = ({ isUploading, albumId }) => {
   const query = useGetAllImages(albumId, "albums");
 
   useEffect(() => {
-    console.log(checkedList);
     setHasChecked(checkedList.some((item) => item.checked === true));
   }, [checkedList]);
   

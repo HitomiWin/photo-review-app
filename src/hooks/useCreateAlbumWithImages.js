@@ -31,7 +31,6 @@ const useCreateAlbumWithImages = () => {
   } = useAuthContext()
 
   const mutate = async (name, updateList) => {
-    console.log(updateList)
     setError(null)
     setIsError(null)
     setIsSuccess(null)

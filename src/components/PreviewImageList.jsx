@@ -15,10 +15,8 @@ const PreviewImageList = ({ albumId }) => {
   const query = useGetAllImages(albumId,"albums");
   const { data: album } = useGetAlbum(albumId);
   const submitQuery = useCreateReviewedAlbum();
-  console.log(submitQuery);
 
   useEffect(() => {
-    console.log(likeList);
     setHasNull(
       likeList.some(
         (item) => (item.isLiked === null) | (item.isDisLiked === null)

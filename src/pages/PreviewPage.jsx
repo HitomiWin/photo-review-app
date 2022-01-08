@@ -6,8 +6,6 @@ import PreviewImageList from "../components/PreviewImageList";
 const PreviewPage = () => {
   const { id } = useParams();
   const albumId = id.slice(-36);
-  console.log(albumId);
-
   return <PreviewImageList albumId={albumId} />;
 };
 
