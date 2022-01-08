@@ -53,3 +53,29 @@ p {
   align-items: center;
 }
 
+.image-box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dislike-box {
+  width: 100%;
+  height: 100%;
+}
+span.dislike-box {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 25%;
+  position: absolute;
+}
+
+span.like {
+  visibility: hidden;
+}
+span.dislike {
+  visibility: visible;
+}

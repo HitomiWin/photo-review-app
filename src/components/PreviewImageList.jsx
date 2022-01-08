@@ -2,21 +2,33 @@ import React, { useState, useEffect } from "react";
 import { Alert, Row, Button, Spinner } from "react-bootstrap";
 import useGetAllImages from "../hooks/useGetAllImages";
 import { SRLWrapper } from "simple-react-lightbox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import PreviewCard from "./cards/PreviewCard";
 import CreateAlbumWithImages from "./modals/CreateAlbumWithImages";
 
 const PreviewImageList = ({ albumId }) => {
   const [likeList, setLikeList] = useState([]);
-  const [isAllChecked, setIsAllChecked] = useState(false);
+  const [hasNull, setHasNull] = useState(true);
   const [createModalShow, setCreateModalShow] = useState(false);
+  const [likeAmount, setLikeAmount] = useState(0);
   const query = useGetAllImages(albumId);
 
   useEffect(() => {
-    console.log(likeList);
-    setIsAllChecked(
-      likeList.some((item) => item.isLiked === null || item.isDisLiked === null)
+    setHasNull(
+      likeList.some(
+        (item) => (item.isLiked === null) | (item.isDisLiked === null)
+      )
     );
+    let i = 0;
+    likeList.forEach((like) => {
+      if (like.isLiked) {
+        i = i + 1;
+      }
+    });
+    setLikeAmount(i);
   }, [likeList]);
+  console.log(likeAmount);
   if (query.isError) {
     return <Alert variant="danger">{query.error}</Alert>;
   }
@@ -35,14 +47,20 @@ const PreviewImageList = ({ albumId }) => {
   return (
     query.data && (
       <>
-        <h4 className="text-center color-yellow my-">My Photos</h4>
-        <div className="d-flex justify-content-end align-item-center">
+        <h4 className="text-center color-yellow mt-3">Photo Gallery</h4>
+        <div className="d-flex justify-content-end align-item-center mt-5">
+          <div className="mx-5">
+            <h5>
+              {likeAmount}/{likeList.length} photos as{" "}
+              <FontAwesomeIcon icon={faThumbsUp} color={"#aa8a0b"} />
+            </h5>
+          </div>
           <Button
             variant="light"
-            disabled={!isAllChecked}
+            disabled={hasNull}
             onClick={() => setCreateModalShow(true)}
           >
-            Create New Album
+            Submit
           </Button>
         </div>
         <CreateAlbumWithImages

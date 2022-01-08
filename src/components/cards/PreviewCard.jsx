@@ -4,11 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbsUp as thumbUpSolid,
   faThumbsDown as thumbDownSolid,
+  faFrown,
 } from "@fortawesome/free-solid-svg-icons";
-// import {
-//   faThumbsUp as thumbUpRegular,
-//   faThumbsDown as thumbDownRegular,
-// } from "@fortawesome/free-regular-svg-icons";
 
 const PreviewCard = ({ image, likeList, setLikeList }) => {
   const [isLiked, setIsLiked] = useState(null);
@@ -77,9 +74,22 @@ const PreviewCard = ({ image, likeList, setLikeList }) => {
               </Button>
             </div>
           </Card.Header>
-          <a href={image.url}>
-            <Card.Img variant="top" src={image.url} title={image._id} />
-          </a>
+          <div className="image-box">
+            <span
+              className={`dislike-box ${
+                isDisLiked === null
+                  ? "like"
+                  : isDisLiked === false
+                  ? "like"
+                  : "dislike"
+              }`}
+            >
+              <FontAwesomeIcon icon={faFrown} />
+            </span>
+            <a href={image.url}>
+              <Card.Img variant="top" src={image.url} title={image._id} />
+            </a>
+          </div>
         </Card>
       </Col>
     </>
