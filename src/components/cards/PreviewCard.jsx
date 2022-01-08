@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button, Card, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,84 +11,62 @@ import {
 // } from "@fortawesome/free-regular-svg-icons";
 
 const PreviewCard = ({ image, likeList, setLikeList }) => {
-  const [isLiked, setIsLiked] = useState("1");
-  const [isDisLiked, setIsDisLiked] = useState("1");
+  const [isLiked, setIsLiked] = useState(null);
+  const [isDisLiked, setIsDisLiked] = useState(null);
 
   useEffect(() => {
-    console.log(likeList);
-    setLikeList((state) => [...state, { image, checked: "1" }]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setLikeList((state) => [...state, { image, isLiked, isDisLiked }]);
+    // eslint-disable-next-line
   }, []);
 
-  // useEffect(() => {
-  //   toggleChecked();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLiked]);
+  const toggleLikeClick = (like) => {
+    if (like) {
+      setIsLiked(isLiked === null ? true : !isLiked);
+      setIsDisLiked(isDisLiked === null ? false : !isDisLiked);
+    } else {
+      setIsLiked(isLiked === null ? false : !isLiked);
+      setIsDisLiked(isDisLiked === null ? true : !isDisLiked);
+    }
+  };
 
   useEffect(() => {
-    console.log(likeList);
-    let updatedList = likeList.map((item) => {
-      if (item.image._id === image._id) {
-        return { ...item, isLiked, isDisLiked };
-      }
-      return item;
-    });
+    if (likeList.length) {
+      let updatedList = likeList.map((item) => {
+        if (item.image._id === image._id) {
+          return { ...item, isLiked: isLiked, isDisLiked: isDisLiked };
+        }
+        return item;
+      });
 
-    setLikeList(updatedList);
-  }, [isLiked, isDisLiked]);
-
-  // const toggleChecked = () => {
-  //   console.log(likeList);
-  //   // to change buttons color
-  //   let updatedList = likeList.map((item) => {
-  //     if (item.image._id === image._id) {
-  //       return { ...item, isLiked, isDisLiked };
-  //     }
-  //     return item;
-  //   });
-
-  //   setLikeList(updatedList);
-  // };
+      setLikeList(() => updatedList);
+    }
+    // eslint-disable-next-line
+  }, [isLiked]);
 
   return (
     <>
       <Col sm={12} md={4} lg={3} className="my-3">
-        <Card
-        // className={`image-card ${deleteImage.isMutating ? "mutating" : ""}`}
-        >
+        <Card>
           <Card.Header>
-            <span title={image.name}>{image.name}</span>
             <div className="card-actions text-end">
-              <Button
-                variant="info"
-                onClick={() => {
-                  setIsLiked(isLiked === "1" ? true : !isLiked);
-                  setIsDisLiked(isDisLiked === "1" ? false : !isDisLiked);
-                }}
-              >
+              <Button variant="info" onClick={() => toggleLikeClick(true)}>
                 <FontAwesomeIcon
                   icon={thumbUpSolid}
                   color={
-                    isLiked === "1" // choosen neither like or not
-                      ? "#d8d0cf"
+                    isLiked === null // choosen neither like or not
+                      ? "#d8d0cf" //gray
                       : isLiked === false // choosen dislike
-                      ? "#d8d0cf"
-                      : "#aa8a0b" // choosen like
+                      ? "#d8d0cf" //gray
+                      : "#aa8a0b" // choosen like //yellow
                   }
                   size="lg"
                 />
               </Button>
-              <Button
-                variant="info"
-                onClick={() => {
-                  setIsLiked(isLiked === "1" ? false : !isLiked);
-                  setIsDisLiked(isDisLiked === "1" ? true : !isDisLiked);
-                }}
-              >
+              <Button variant="info" onClick={() => toggleLikeClick(false)}>
                 <FontAwesomeIcon
                   icon={thumbDownSolid}
                   color={
-                    isDisLiked === "1" // choosen neither like or not
+                    isDisLiked === null // choosen neither like or not
                       ? "#d8d0cf"
                       : isDisLiked === false // choosen like
                       ? "#d8d0cf"

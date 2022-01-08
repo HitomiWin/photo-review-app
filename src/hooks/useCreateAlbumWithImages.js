@@ -46,7 +46,7 @@ const useCreateAlbumWithImages = () => {
       await updateList.forEach((image) => {
         setDoc(doc(db, 'albums', uuid, "images", image._id), {
           ...image,
-          image_id: null
+          image_id: undefined
         })
       })
       //Success
