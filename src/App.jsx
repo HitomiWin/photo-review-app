@@ -19,10 +19,10 @@ function App() {
       <Navigation />
       <Container id="App" className="py-3">
         <Routes>
+          <Route path="preview/:id" element={<PreviewPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="logout" element={<LogoutPage />} />
           <Route path="signup" element={<SignupPage />} />
-          <Route path="preview/:id" element={<PreviewPage />} />
 
           {/* Protected routes */}
           <Route

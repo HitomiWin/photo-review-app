@@ -8,7 +8,7 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
   const [updateList, setUpdateList] = useState(null);
   useEffect(() => {
     setUpdateList(
-      imageList.filter((image) => image.isLiked).map(({ image }) => image)
+      imageList.filter((image) => image.checked).map(({ image }) => image)
     );
   }, [imageList]);
 

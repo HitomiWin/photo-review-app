@@ -10,20 +10,13 @@ import {
 //   faThumbsDown as thumbDownRegular,
 // } from "@fortawesome/free-regular-svg-icons";
 
-const PreviewCard = ({
-  albumId,
-  image,
-  checkedList,
-  setCheckedList,
-  isUploading,
-  isDataLoading,
-}) => {
+const PreviewCard = ({ image, likeList, setLikeList }) => {
   const [isLiked, setIsLiked] = useState("1");
   const [isDisLiked, setIsDisLiked] = useState("1");
 
   useEffect(() => {
-    console.log(checkedList);
-    setCheckedList((state) => [...state, { image }]);
+    console.log(likeList);
+    setLikeList((state) => [...state, { image, checked: "1" }]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,27 +26,28 @@ const PreviewCard = ({
   // }, [isLiked]);
 
   useEffect(() => {
-    let updatedList = checkedList.map((item) => {
+    console.log(likeList);
+    let updatedList = likeList.map((item) => {
       if (item.image._id === image._id) {
         return { ...item, isLiked, isDisLiked };
       }
       return item;
     });
 
-    setCheckedList(updatedList);
+    setLikeList(updatedList);
   }, [isLiked, isDisLiked]);
 
   // const toggleChecked = () => {
-  //   console.log(checkedList);
+  //   console.log(likeList);
   //   // to change buttons color
-  //   let updatedList = checkedList.map((item) => {
+  //   let updatedList = likeList.map((item) => {
   //     if (item.image._id === image._id) {
   //       return { ...item, isLiked, isDisLiked };
   //     }
   //     return item;
   //   });
 
-  //   setCheckedList(updatedList);
+  //   setLikeList(updatedList);
   // };
 
   return (
@@ -63,6 +57,7 @@ const PreviewCard = ({
         // className={`image-card ${deleteImage.isMutating ? "mutating" : ""}`}
         >
           <Card.Header>
+            <span title={image.name}>{image.name}</span>
             <div className="card-actions text-end">
               <Button
                 variant="info"

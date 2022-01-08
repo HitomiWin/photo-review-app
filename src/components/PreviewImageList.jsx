@@ -6,19 +6,17 @@ import PreviewCard from "./cards/PreviewCard";
 import CreateAlbumWithImages from "./modals/CreateAlbumWithImages";
 
 const PreviewImageList = ({ albumId }) => {
-  const [checkedList, setCheckedList] = useState([]);
+  const [likeList, setLikeList] = useState([]);
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [createModalShow, setCreateModalShow] = useState(false);
   const query = useGetAllImages(albumId);
 
   useEffect(() => {
-    console.log(checkedList);
+    console.log(likeList);
     setIsAllChecked(
-      checkedList.some(
-        (item) => item.isLiked === null || item.isDisLiked === null
-      )
+      likeList.some((item) => item.isLiked === null || item.isDisLiked === null)
     );
-  }, [checkedList]);
+  }, [likeList]);
   if (query.isError) {
     return <Alert variant="danger">{query.error}</Alert>;
   }
@@ -50,7 +48,7 @@ const PreviewImageList = ({ albumId }) => {
         <CreateAlbumWithImages
           show={createModalShow}
           onHide={() => setCreateModalShow(false)}
-          imageList={checkedList}
+          imageList={likeList}
         />
         {query.isLoading ? (
           <div className="spinner-wrapper">
@@ -62,10 +60,9 @@ const PreviewImageList = ({ albumId }) => {
               {query.data.map((image) => (
                 <PreviewCard
                   key={image._id}
-                  albumId={albumId}
                   image={image}
-                  checkedList={checkedList}
-                  setCheckedList={setCheckedList}
+                  likeList={likeList}
+                  setLikeList={setLikeList}
                 />
               ))}
             </Row>
