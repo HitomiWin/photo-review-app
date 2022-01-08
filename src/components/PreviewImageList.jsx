@@ -12,7 +12,7 @@ const PreviewImageList = ({ albumId }) => {
   const [likeList, setLikeList] = useState([]);
   const [hasNull, setHasNull] = useState(true);
   const [likeAmount, setLikeAmount] = useState(0);
-  const query = useGetAllImages(albumId);
+  const query = useGetAllImages(albumId,"albums");
   const { data: album } = useGetAlbum(albumId);
   const submitQuery = useCreateReviewedAlbum();
   console.log(submitQuery);

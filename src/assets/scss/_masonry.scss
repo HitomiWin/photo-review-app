@@ -1,0 +1,19 @@
+/**
+ * Masonry
+ */
+
+.review-masonry {
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+
+  .review-masonry-column {
+    padding-left: 30px;
+    padding-top: 10px; /* gutter size */
+    background-clip: padding-box;
+
+    > * {
+      margin-bottom: 30px;
+    }
+  }
+}

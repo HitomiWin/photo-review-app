@@ -9,17 +9,13 @@ const ImageList = ({ isUploading, albumId }) => {
   const [checkedList, setCheckedList] = useState([]);
   const [hasChecked, setHasChecked] = useState(false);
   const [createModalShow, setCreateModalShow] = useState(false);
-  const query = useGetAllImages(albumId);
+  const query = useGetAllImages(albumId, "albums");
 
   useEffect(() => {
     console.log(checkedList);
     setHasChecked(checkedList.some((item) => item.checked === true));
   }, [checkedList]);
-
-  if (query.isError) {
-    return <Alert variant="danger">{query.error}</Alert>;
-  }
-
+  
   if (query.isLoading) {
     return (
       <div className="spinner-wrapper">
@@ -27,6 +23,10 @@ const ImageList = ({ isUploading, albumId }) => {
       </div>
     );
   }
+  if (query.isError) {
+    return <Alert variant="danger">{query.error}</Alert>;
+  }
+
   if (!query.data.length) {
     return <p className="text-center">Please upload some photos</p>;
   }

@@ -9,7 +9,7 @@ const MyAlbumsList = () => {
   const [createModalShow, setCreateModalShow] = useState(false);
   const uuid = uuidv4();
 
-  const query = useGetAllAlbums();
+  const query = useGetAllAlbums("albums");
 
   return (
     <>
