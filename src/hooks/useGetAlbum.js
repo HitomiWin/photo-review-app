@@ -1,6 +1,14 @@
-import { useEffect, useState } from 'react'
-import { db } from '../firebase'
-import { doc, onSnapshot } from 'firebase/firestore'
+import {
+  useEffect,
+  useState
+} from 'react'
+import {
+  db
+} from '../firebase'
+import {
+  doc,
+  onSnapshot
+} from 'firebase/firestore'
 
 const useGetAlbum = (id) => {
   const [isLoading, setIsLoading] = useState(null)
@@ -44,7 +52,7 @@ const useGetAlbum = (id) => {
       setData(null)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ id])
+  }, [id])
 
 
   return {

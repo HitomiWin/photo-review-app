@@ -19,40 +19,35 @@ import {
 } from "uuid"
 
 
-const useCreateAlbumWithImages = () => {
+const useCreateReviewedAlbum = () => {
   const [error, setError] = useState(null);
   const [isError, setIsError] = useState(null);
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
   const uuid = uuidv4()
-  const uuid2 = uuidv4()
-  const {
-    currentUser
-  } = useAuthContext()
 
-  const mutate = async (name, updateList) => {
-    console.log(updateList)
+  const mutate = async (album, updateList) => {
     setError(null)
     setIsError(null)
     setIsSuccess(null)
     setIsMutating(true)
 
     try {
-      await setDoc(doc(db, 'albums', uuid), {
+      await setDoc(doc(db, 'review-albums', uuid), {
         created: serverTimestamp(),
-        name,
-        owner: currentUser.uid,
-        linkId: uuid2,
+        name: album.name,
+        owner: album.owner
       })
 
       await updateList.forEach((image) => {
-        setDoc(doc(db, 'albums', uuid, "images", image._id), {
+        setDoc(doc(db, 'review-albums', uuid, "images", image._id), {
           ...image,
           created: serverTimestamp()
         })
       })
+
       await updateList.forEach((image) => {
-        updateDoc(doc(db, 'albums', uuid, "images", image._id), {
+        updateDoc(doc(db, 'review-albums', uuid, "images", image._id), {
           _id: deleteField()
         })
       })
@@ -76,4 +71,4 @@ const useCreateAlbumWithImages = () => {
   }
 }
 
-export default useCreateAlbumWithImages
+export default useCreateReviewedAlbum

@@ -6,6 +6,7 @@ import useCreateAlbumWithImages from "../../hooks/useCreateAlbumWithImages";
 const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
   const navigate = useNavigate();
   const [updateList, setUpdateList] = useState(null);
+
   useEffect(() => {
     setUpdateList(
       imageList.filter((image) => image.checked).map(({ image }) => image)

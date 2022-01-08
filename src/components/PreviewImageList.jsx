@@ -5,16 +5,20 @@ import { SRLWrapper } from "simple-react-lightbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import PreviewCard from "./cards/PreviewCard";
-import CreateAlbumWithImages from "./modals/CreateAlbumWithImages";
+import useCreateReviewedAlbum from "../hooks/useCreateReviewedAlbum";
+import useGetAlbum from "../hooks/useGetAlbum";
 
 const PreviewImageList = ({ albumId }) => {
   const [likeList, setLikeList] = useState([]);
   const [hasNull, setHasNull] = useState(true);
-  const [createModalShow, setCreateModalShow] = useState(false);
   const [likeAmount, setLikeAmount] = useState(0);
   const query = useGetAllImages(albumId);
+  const { data: album } = useGetAlbum(albumId);
+  const submitQuery = useCreateReviewedAlbum();
+  console.log(submitQuery);
 
   useEffect(() => {
+    console.log(likeList);
     setHasNull(
       likeList.some(
         (item) => (item.isLiked === null) | (item.isDisLiked === null)
@@ -28,10 +32,19 @@ const PreviewImageList = ({ albumId }) => {
     });
     setLikeAmount(i);
   }, [likeList]);
-  console.log(likeAmount);
-  if (query.isError) {
-    return <Alert variant="danger">{query.error}</Alert>;
-  }
+
+  let updateList = likeList
+    .filter((image) => image.isLiked)
+    .map(({ image }) => image);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      submitQuery.mutate(album, updateList);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   if (query.isLoading) {
     return (
@@ -40,13 +53,38 @@ const PreviewImageList = ({ albumId }) => {
       </div>
     );
   }
+  if (query.isError) {
+    return <Alert variant="danger">{query.error}</Alert>;
+  }
+
   if (!query.data.length) {
-    return <p className="text-center">Please upload some photos</p>;
+    return (
+      <p className="text-center">
+        Sorry, There are no photos, Please contact your photographer
+      </p>
+    );
   }
 
   return (
     query.data && (
-      <>
+      <div className="preview-container">
+        {submitQuery.isLoading && (
+          <div className="text-center">
+            <Spinner animation="border" variant="light" />
+          </div>
+        )}
+
+        {submitQuery.isError && (
+          <div className="text-center">
+            <Alert variant="danger">{submitQuery.error}</Alert>
+          </div>
+        )}
+        {submitQuery.isSuccess && (
+          <div className="text-center">
+            <h4>Thank you for submitting!</h4>
+          </div>
+        )}
+
         <h4 className="text-center color-yellow mt-3">Photo Gallery</h4>
         <div className="d-flex justify-content-end align-item-center mt-5">
           <div className="mx-5">
@@ -55,19 +93,10 @@ const PreviewImageList = ({ albumId }) => {
               <FontAwesomeIcon icon={faThumbsUp} color={"#aa8a0b"} />
             </h5>
           </div>
-          <Button
-            variant="light"
-            disabled={hasNull}
-            onClick={() => setCreateModalShow(true)}
-          >
+          <Button variant="light" disabled={hasNull} onClick={handleSubmit}>
             Submit
           </Button>
         </div>
-        <CreateAlbumWithImages
-          show={createModalShow}
-          onHide={() => setCreateModalShow(false)}
-          imageList={likeList}
-        />
         {query.isLoading ? (
           <div className="spinner-wrapper">
             <Spinner animation="border" variant="light" />;
@@ -86,7 +115,7 @@ const PreviewImageList = ({ albumId }) => {
             </Row>
           </SRLWrapper>
         )}
-      </>
+      </div>
     )
   );
 };
