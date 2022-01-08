@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
+import CustomerReviewsList from "../components/CustomerReviewsList";
 
 const CustomerReviewPage = () => {
-  return (
-    <div>
-      CustomerReviewPage
-    </div>
-  )
-}
+  return <CustomerReviewsList />;
+};
 
-export default CustomerReviewPage
+export default CustomerReviewPage;
