@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Alert, Row, Button } from "react-bootstrap";
-import { FadeLoader } from "react-spinners";
+import { Alert, Row, Button, Spinner } from "react-bootstrap";
 import useGetAllImages from "../hooks/useGetAllImages";
 import { SRLWrapper } from "simple-react-lightbox";
 import ImageCard from "./cards/ImageCard";
@@ -23,7 +22,7 @@ const ImageList = ({ isUploading, albumId }) => {
   if (query.isLoading) {
     return (
       <div className="spinner-wrapper">
-        <FadeLoader color={"#aa8a0b"} />
+        <Spinner animation="border" variant="light" />
       </div>
     );
   }
@@ -51,7 +50,7 @@ const ImageList = ({ isUploading, albumId }) => {
         />
         {query.isLoading ? (
           <div className="spinner-wrapper">
-            <FadeLoader color={"#aa8a0b"} />
+            <Spinner animation="border" variant="light" />;
           </div>
         ) : (
           <SRLWrapper>

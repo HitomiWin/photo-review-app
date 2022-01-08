@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImages } from "@fortawesome/free-solid-svg-icons";
-import { Alert, ProgressBar } from "react-bootstrap";
-import { RingLoader } from "react-spinners";
+import { Alert, ProgressBar, Spinner } from "react-bootstrap";
 
 import useGetAlbum from "../hooks/useGetAlbum";
 import useUploadImage from "../hooks/useUploadImage";
@@ -42,7 +41,7 @@ const UploadImagePage = () => {
   if (albumQuery.isLoading) {
     return (
       <div className="center">
-        <RingLoader color={"#aa8a0b"} size={50} />
+        <Spinner animation="border" variant="light" />;
       </div>
     );
   }

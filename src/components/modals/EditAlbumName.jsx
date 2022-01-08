@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
-import { Button, Modal, Form, Alert } from "react-bootstrap";
-import { FadeLoader } from "react-spinners";
+import { Button, Modal, Form, Alert, Spinner } from "react-bootstrap";
 import useEditAlbum from "../../hooks/useEditAlbum";
 
 const EditAlbumName = ({ album, show, onHide }) => {
@@ -19,13 +18,9 @@ const EditAlbumName = ({ album, show, onHide }) => {
 
   if (editQuery.isLoading) {
     return (
-      <FadeLoader
-        color={"#aa8a0b"}
-        height={15}
-        width={5}
-        radius={2}
-        margin={2}
-      />
+      <>
+        <Spinner animation="border" variant="light" />;
+      </>
     );
   }
 

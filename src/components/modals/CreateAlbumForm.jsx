@@ -1,17 +1,18 @@
 import React, { useRef } from "react";
-import { Button, Modal, Form, Alert } from "react-bootstrap";
-import { FadeLoader } from "react-spinners";
+import { Button, Modal, Form, Alert, Spinner } from "react-bootstrap";
 import useCreateAlbum from "../../hooks/useCreateAlbum";
+import { useNavigate } from "react-router-dom";
 
-const CreateAlbumForm = ({ show, onHide }) => {
+const CreateAlbumForm = ({ show, onHide, uuid }) => {
   const nameRef = useRef(null);
   const query = useCreateAlbum();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      query.mutate(nameRef.current.value);
-      onHide(true);
+      query.mutate(nameRef.current.value, uuid);
+      navigate(`/upload-image/${uuid}`);
     } catch (e) {
       console.log(e);
     }
@@ -19,13 +20,9 @@ const CreateAlbumForm = ({ show, onHide }) => {
 
   if (query.isLoading) {
     return (
-      <FadeLoader
-        color={"#aa8a0b"}
-        height={15}
-        width={5}
-        radius={2}
-        margin={2}
-      />
+      <div className="text-center">
+        <Spinner animation="border" variant="light" />;
+      </div>
     );
   }
 

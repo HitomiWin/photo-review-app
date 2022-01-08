@@ -22,13 +22,12 @@ const useCreateAlbum = () => {
   const [isError, setIsError] = useState(null);
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
-  const uuid = uuidv4()
   const uuid2 = uuidv4()
   const {
     currentUser
   } = useAuthContext()
 
-  const mutate = async (name) => {
+  const mutate = async (name, uuid) => {
     setError(null)
     setIsError(null)
     setIsSuccess(null)

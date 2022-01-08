@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { RingLoader } from "react-spinners";
+import { Spinner } from "react-bootstrap";
 import { auth } from "../firebase";
 
 const AuthContext = createContext();
@@ -49,7 +49,7 @@ const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider value={values}>
       {isLoading && (
         <div className="center">
-          <RingLoader color={"#aa8a0b"} size={50} />
+          <Spinner animation="border" variant="light" />;
         </div>
       )}
       {!isLoading && children}

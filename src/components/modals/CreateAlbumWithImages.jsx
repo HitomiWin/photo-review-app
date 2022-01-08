@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Button, Modal, Form, Alert } from "react-bootstrap";
+import { Button, Modal, Form, Alert, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { FadeLoader } from "react-spinners";
 import useCreateAlbumWithImages from "../../hooks/useCreateAlbumWithImages";
 
 const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
@@ -29,13 +28,9 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
 
   if (query.isLoading) {
     return (
-      <FadeLoader
-        color={"#aa8a0b"}
-        height={15}
-        width={5}
-        radius={2}
-        margin={2}
-      />
+      <>
+        <Spinner animation="border" variant="light" />;
+      </>
     );
   }
   if (query.isSuccess) {

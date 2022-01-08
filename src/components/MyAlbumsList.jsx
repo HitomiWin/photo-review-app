@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Button, Alert, Row } from "react-bootstrap";
-import { FadeLoader } from "react-spinners";
+import { Button, Alert, Row, Spinner } from "react-bootstrap";
 import CreateAlbumForm from "./modals/CreateAlbumForm";
 import useGetAllAlbums from "../hooks/useGetAllAlbums";
 import AlbumCard from "./cards/AlbumCard";
+import { v4 as uuidv4 } from "uuid";
 
 const MyAlbumsList = () => {
   const [createModalShow, setCreateModalShow] = useState(false);
+  const uuid = uuidv4();
 
   const query = useGetAllAlbums();
 
@@ -25,11 +26,12 @@ const MyAlbumsList = () => {
       <CreateAlbumForm
         show={createModalShow}
         onHide={() => setCreateModalShow(false)}
+        uuid={uuid}
       />
       {query.isError && <Alert variant="danger">{query.error}</Alert>}
       {query.isLoading && (
         <div className="spinner-wrapper">
-          <FadeLoader color={"#aa8a0b"} />
+          <Spinner animation="border" variant="light" />;
         </div>
       )}
       <Row className="justify-content-center">
