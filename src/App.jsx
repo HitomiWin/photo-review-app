@@ -1,16 +1,16 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import  Navigation  from "./pages/partials/Navigation";
-import  HomePage  from "./pages/HomePage";
-import  PageNotFound  from "./pages/PageNotFound";
-import  LoginPage  from "./pages/LoginPage";
-import  LogoutPage  from "./pages/LogoutPage";
-import  SignupPage  from "./pages/SignupPage";
-import UploadImagePage from "./pages/UploadImagePage"
-import CustomerReviewAlbumsPage from "./pages/CustomerReviewAlbumsPage"
-import EditAlubumPage from "./pages/EditAlbumPage"
-import ReviewPage from "./pages/ReviewPage"
+import Navigation from "./pages/partials/Navigation";
+import HomePage from "./pages/HomePage";
+import PageNotFound from "./pages/PageNotFound";
+import LoginPage from "./pages/LoginPage";
+import LogoutPage from "./pages/LogoutPage";
+import SignupPage from "./pages/SignupPage";
+import UploadImagePage from "./pages/UploadImagePage";
+import CustomerReviewAlbumsPage from "./pages/CustomerReviewAlbumsPage";
+import EditAlubumPage from "./pages/EditAlbumPage";
+import PreviewPage from "./pages/PreviewPage";
 import RequireAuth from "./components/RequireAuth";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="logout" element={<LogoutPage />} />
           <Route path="signup" element={<SignupPage />} />
-          <Route path="review/:id" element={<ReviewPage />} />
+          <Route path="preview/:id" element={<PreviewPage />} />
 
           {/* Protected routes */}
           <Route

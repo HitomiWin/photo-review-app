@@ -17,7 +17,7 @@ const AlbumCard = ({ album }) => {
     deleteAlbum.mutate(album);
   };
 
-  const url = `localhost:3000/preview/${album.linkId}${album._id}`;
+  const url = `localhost:3001/preview/${album.linkId}${album._id}`;
 
   return (
     <>

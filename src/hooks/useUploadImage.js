@@ -5,8 +5,6 @@ import {
 import {
   addDoc,
   collection,
-  setDoc,
-  doc,
   serverTimestamp
 } from 'firebase/firestore'
 import {
@@ -21,9 +19,6 @@ import {
   db,
   storage
 } from '../firebase'
-import {
-  v4 as uuidv4
-} from "uuid"
 
 const useUploadImage = () => {
   const [error, setError] = useState(null);
@@ -31,7 +26,6 @@ const useUploadImage = () => {
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
   const [progress, setProgress] = useState(null)
-  const uuid = uuidv4()
   const {
     currentUser
   } = useAuthContext()
