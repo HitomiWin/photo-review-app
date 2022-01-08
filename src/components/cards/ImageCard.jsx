@@ -5,12 +5,19 @@ import { faTrashAlt, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare as noCheckedBox } from "@fortawesome/free-regular-svg-icons";
 import useDeleteImage from "../../hooks/useDeleteImage";
 
-const ImageCard = ({ albumId, image, checkedList, setCheckedList }) => {
+const ImageCard = ({
+  albumId,
+  image,
+  checkedList,
+  setCheckedList,
+  isUploading,
+  isDataLoading,
+}) => {
   const [checked, setChecked] = useState(false);
   const deleteImage = useDeleteImage(image);
-  const handleDeleteImageClick = (e) => {
+  const handleDeleteImageClick = async (e) => {
     e.stopPropagation();
-    deleteImage.mutate(albumId, image._id);
+    await deleteImage.mutate(albumId, image._id);
   };
 
   useEffect(() => {
@@ -40,12 +47,16 @@ const ImageCard = ({ albumId, image, checkedList, setCheckedList }) => {
     <>
       <Col sm={12} md={4} lg={3} className="my-3">
         <Card
-          className={`image-card ${deleteImage.isMutating ? "mutating" : ""}`}
+        // className={`image-card ${deleteImage.isMutating ? "mutating" : ""}`}
         >
           <Card.Header>
             <span title={image.name}>{image.name}</span>
             <div className="card-actions">
-              <Button variant="info" onClick={toggleChecked}>
+              <Button
+                variant="info"
+                onClick={toggleChecked}
+                disable={isUploading || isDataLoading}
+              >
                 {checked ? (
                   <FontAwesomeIcon
                     icon={faCheckSquare}

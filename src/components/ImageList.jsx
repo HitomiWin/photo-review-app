@@ -6,14 +6,13 @@ import { SRLWrapper } from "simple-react-lightbox";
 import ImageCard from "./cards/ImageCard";
 import CreateAlbumWithImages from "./modals/CreateAlbumWithImages";
 
-const ImageList = ({ albumId }) => {
+const ImageList = ({ isUploading, albumId }) => {
   const [checkedList, setCheckedList] = useState([]);
   const [hasChecked, setHasChecked] = useState(false);
   const [createModalShow, setCreateModalShow] = useState(false);
   const query = useGetAllImages(albumId);
 
   useEffect(() => {
-    console.log(checkedList);
     setHasChecked(checkedList.some((item) => item.checked === true));
   }, [checkedList]);
 
@@ -39,7 +38,7 @@ const ImageList = ({ albumId }) => {
         <div className="d-flex justify-content-end align-item-center">
           <Button
             variant="light"
-            disabled={!hasChecked}
+            disabled={!hasChecked || isUploading}
             onClick={() => setCreateModalShow(true)}
           >
             Create New Album
@@ -50,19 +49,26 @@ const ImageList = ({ albumId }) => {
           onHide={() => setCreateModalShow(false)}
           imageList={checkedList}
         />
-        <SRLWrapper>
-          <Row className="justify-content-center">
-            {query.data.map((image) => (
-              <ImageCard
-                key={image._id}
-                albumId={albumId}
-                image={image}
-                checkedList={checkedList}
-                setCheckedList={setCheckedList}
-              />
-            ))}
-          </Row>
-        </SRLWrapper>
+        {query.isLoading ? (
+          <div className="spinner-wrapper">
+            <FadeLoader color={"#aa8a0b"} />
+          </div>
+        ) : (
+          <SRLWrapper>
+            <Row className="justify-content-center">
+              {query.data.map((image) => (
+                <ImageCard
+                  key={image._id}
+                  albumId={albumId}
+                  image={image}
+                  checkedList={checkedList}
+                  setCheckedList={setCheckedList}
+                  isUploading={isUploading}
+                />
+              ))}
+            </Row>
+          </SRLWrapper>
+        )}
       </>
     )
   );

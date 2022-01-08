@@ -8,7 +8,7 @@ import { RingLoader } from "react-spinners";
 
 import useGetAlbum from "../hooks/useGetAlbum";
 import useUploadImage from "../hooks/useUploadImage";
-import ImageList from "../components/ImageList"
+import ImageList from "../components/ImageList";
 
 const UploadImagePage = () => {
   const uploadImage = useUploadImage();
@@ -89,7 +89,7 @@ const UploadImagePage = () => {
           <Alert variant="success">Uploaded the files successflly </Alert>
         )}
       </div>
-      <ImageList albumId={id} />
+      <ImageList isUploading={uploadImage.progress} albumId={id} />
     </>
   );
 };
