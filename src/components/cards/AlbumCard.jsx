@@ -17,7 +17,7 @@ const AlbumCard = ({ album }) => {
     await deleteAlbum.mutate(album);
   };
 
-  const url = `https://brave-knuth-ae749f.netlify.app/${album.linkId}${album._id}`;
+  const url = `https://brave-knuth-ae749f.netlify.app/preview/${album.linkId}${album._id}`;
 
   return (
     <>
