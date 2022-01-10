@@ -20,8 +20,8 @@ const UploadImagePage = () => {
       if (!acceptedFiles.length) {
         return;
       }
-      acceptedFiles.forEach((file) => {
-        uploadImage.mutate(file, id);
+      acceptedFiles.forEach(async (file) => {
+        await uploadImage.mutate(file, id);
       });
     },
     [uploadImage, id]

@@ -6,10 +6,10 @@ const EditAlbumName = ({ album, show, onHide }) => {
   const nameRef = useRef(null);
   const editQuery = useEditAlbum();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      editQuery.mutate(album._id, nameRef.current.value);
+      await editQuery.mutate(album._id, nameRef.current.value);
       onHide(true);
     } catch (e) {
       console.log(e);

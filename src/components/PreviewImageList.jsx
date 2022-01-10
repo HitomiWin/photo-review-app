@@ -12,7 +12,7 @@ const PreviewImageList = ({ albumId }) => {
   const [likeList, setLikeList] = useState([]);
   const [hasNull, setHasNull] = useState(true);
   const [likeAmount, setLikeAmount] = useState(0);
-  const query = useGetAllImages(albumId,"albums");
+  const query = useGetAllImages(albumId, "albums");
   const { data: album } = useGetAlbum(albumId);
   const submitQuery = useCreateReviewedAlbum();
 
@@ -35,10 +35,10 @@ const PreviewImageList = ({ albumId }) => {
     .filter((image) => image.isLiked)
     .map(({ image }) => image);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      submitQuery.mutate(album, updateList);
+      await submitQuery.mutate(album, updateList);
     } catch (e) {
       console.log(e);
     }

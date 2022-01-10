@@ -12,9 +12,9 @@ const AlbumCard = ({ album }) => {
   const [modalShow, setModalShow] = useState(false);
   const deleteAlbum = useDeleteAlbum(album);
   const navigate = useNavigate();
-  const handleDeleteAlbumClick = (e) => {
+  const handleDeleteAlbumClick = async (e) => {
     e.stopPropagation();
-    deleteAlbum.mutate(album);
+    await deleteAlbum.mutate(album);
   };
 
   const url = `localhost:3000/preview/${album.linkId}${album._id}`;

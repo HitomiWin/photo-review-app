@@ -15,10 +15,10 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
 
   const nameRef = useRef(null);
   const query = useCreateAlbumWithImages();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      query.mutate(nameRef.current.value, updateList);
+      await query.mutate(nameRef.current.value, updateList);
     } catch (e) {
       console.log(e);
     }

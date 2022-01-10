@@ -39,15 +39,15 @@ const useCreateReviewedAlbum = () => {
         owner: album.owner
       })
 
-      await updateList.forEach((image) => {
-        setDoc(doc(db, 'review-albums', uuid, "images", image._id), {
+      await updateList.forEach(async (image) => {
+        await setDoc(doc(db, 'review-albums', uuid, "images", image._id), {
           ...image,
           created: serverTimestamp()
         })
       })
 
-      await updateList.forEach((image) => {
-        updateDoc(doc(db, 'review-albums', uuid, "images", image._id), {
+      await updateList.forEach(async (image) => {
+        await updateDoc(doc(db, 'review-albums', uuid, "images", image._id), {
           _id: deleteField()
         })
       })

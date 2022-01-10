@@ -8,10 +8,10 @@ const CreateAlbumForm = ({ show, onHide, uuid }) => {
   const query = useCreateAlbum();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      query.mutate(nameRef.current.value, uuid);
+      await query.mutate(nameRef.current.value, uuid);
       navigate(`/upload-image/${uuid}`);
     } catch (e) {
       console.log(e);
