@@ -5,13 +5,15 @@ import useCreateAlbumWithImages from "../../hooks/useCreateAlbumWithImages";
 
 const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
   const navigate = useNavigate();
-  const [updateList, setUpdateList] = useState(null);
-
-  useEffect(() => {
-    setUpdateList(
-      imageList.filter((image) => image.checked).map(({ image }) => image)
-    );
-  }, [imageList]);
+  // const [updateList, setUpdateList] = useState(null);
+  const updateList = imageList
+    .filter((image) => image.checked)
+    .map(({ image }) => image);
+  // useEffect(() => {
+  //   setUpdateList(
+  //     imageList.filter((image) => image.checked).map(({ image }) => image)
+  //   );
+  // }, [imageList]);
 
   const nameRef = useRef(null);
   const query = useCreateAlbumWithImages();
@@ -19,6 +21,8 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
     e.preventDefault();
     try {
       await query.mutate(nameRef.current.value, updateList);
+      await onHide(true);
+      navigate("/");
     } catch (e) {
       console.log(e);
     }
@@ -31,10 +35,8 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
       </>
     );
   }
-  if (query.isSuccess) {
-    onHide(true);
-    navigate("/");
-  }
+  // if (query.isSuccess) {
+  // }
 
   return (
     <>

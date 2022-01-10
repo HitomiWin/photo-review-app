@@ -7,14 +7,10 @@ import CreateAlbumWithImages from "./modals/CreateAlbumWithImages";
 
 const ImageList = ({ isUploading, albumId }) => {
   const [checkedList, setCheckedList] = useState([]);
-  const [hasChecked, setHasChecked] = useState(false);
+  // const [hasChecked, setHasChecked] = useState(false);
   const [createModalShow, setCreateModalShow] = useState(false);
   const query = useGetAllImages(albumId, "albums");
 
-  useEffect(() => {
-    setHasChecked(checkedList.some((item) => item.checked === true));
-  }, [checkedList]);
-  
   if (query.isLoading) {
     return (
       <div className="spinner-wrapper">
@@ -29,6 +25,7 @@ const ImageList = ({ isUploading, albumId }) => {
   if (!query.data.length) {
     return <p className="text-center">Please upload some photos</p>;
   }
+  const hasChecked = checkedList.some((item) => item.checked === true);
 
   return (
     query.data && (

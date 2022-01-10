@@ -21,10 +21,6 @@ const ReviewAlbumCard = ({ album }) => {
           <Card.Body className="d-flex justify-content-between">
             {firebaseTimestampToString(album.created)}
           </Card.Body>
-
-          {/* <a href={album.url}>
-        <Card.Img variant="top" src={album.url} title={album._id} />
-      </a> */}
         </Card>
       </Col>
     </>
