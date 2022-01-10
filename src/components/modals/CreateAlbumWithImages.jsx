@@ -1,19 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { Button, Modal, Form, Alert, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useCreateAlbumWithImages from "../../hooks/useCreateAlbumWithImages";
 
 const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
   const navigate = useNavigate();
-  // const [updateList, setUpdateList] = useState(null);
   const updateList = imageList
     .filter((image) => image.checked)
     .map(({ image }) => image);
-  // useEffect(() => {
-  //   setUpdateList(
-  //     imageList.filter((image) => image.checked).map(({ image }) => image)
-  //   );
-  // }, [imageList]);
 
   const nameRef = useRef(null);
   const query = useCreateAlbumWithImages();
@@ -35,8 +29,6 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
       </>
     );
   }
-  // if (query.isSuccess) {
-  // }
 
   return (
     <>

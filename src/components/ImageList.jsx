@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Alert, Row, Button, Spinner } from "react-bootstrap";
 import useGetAllImages from "../hooks/useGetAllImages";
 import { SRLWrapper } from "simple-react-lightbox";
@@ -7,7 +7,6 @@ import CreateAlbumWithImages from "./modals/CreateAlbumWithImages";
 
 const ImageList = ({ isUploading, albumId }) => {
   const [checkedList, setCheckedList] = useState([]);
-  // const [hasChecked, setHasChecked] = useState(false);
   const [createModalShow, setCreateModalShow] = useState(false);
   const query = useGetAllImages(albumId, "albums");
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 const Navigation = () => {
@@ -19,7 +19,7 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" variant="light" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            {currentUser ? (
+            {currentUser && (
               <>
                 <NavDropdown
                   title={currentUser.email.substring(
@@ -42,28 +42,6 @@ const Navigation = () => {
                     Log Out
                   </NavLink>
                 </NavDropdown>
-                {/* <NavLink to="/" className="nav-link text-info ">
-                  My Albums
-                </NavLink>
-                <NavLink to="/customer-review-albums" className="nav-link text-info">
-                  Reviewes
-                </NavLink>
-                <NavLink to="/logout" className="nav-link text-info">
-                  Logout
-                </NavLink>
-                <Navbar.Text className="ms-2">
-                <FontAwesomeIcon icon={faUser} size="lg" />{" "}
-                  {currentUser.email.substring(0, currentUser.email.indexOf("@"))}
-                </Navbar.Text> */}
-              </>
-            ) : (
-              <>
-                <NavLink to="/login" className="nav-link text-info">
-                  Login
-                </NavLink>
-                <NavLink to="/signup" className="nav-link text-info">
-                  Signup
-                </NavLink>
               </>
             )}
           </Nav>

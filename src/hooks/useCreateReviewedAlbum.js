@@ -9,9 +9,6 @@ import {
   serverTimestamp,
 } from "firebase/firestore"
 import {
-  useAuthContext
-} from "../contexts/AuthContext"
-import {
   db
 } from "../firebase"
 import {

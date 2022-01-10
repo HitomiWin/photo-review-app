@@ -25,12 +25,6 @@ const ImageCard = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   if (deleteImage.isSuccess) {
-  //     console.log("success");
-  //   }
-  // }, [deleteImage]);
-
   const toggleChecked = () => {
     setChecked(!checked); // to change buttons color
     let updatedList = checkedList.map((item) => {
