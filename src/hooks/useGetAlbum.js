@@ -7,25 +7,37 @@ import {
 } from '../firebase'
 import {
   doc,
-  onSnapshot
+  onSnapshot,
+  where,
+  query
 } from 'firebase/firestore'
+import {
+  useAuthContext
+} from "../contexts/AuthContext";
 
-const useGetAlbum = (id) => {
+
+const useGetAlbum = (id, preview) => {
+  const {
+    currentUser
+  } = useAuthContext();
   const [isLoading, setIsLoading] = useState(null)
   const [isError, setIsError] = useState(null)
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
 
-  const getDoc = async () => {
+  const getDoc = () => {
     setIsLoading(true)
     setIsError(false)
     setError(null)
 
     // get document reference
-    const ref = doc(db, "albums", id)
+    const albumRef = doc(db, "albums", id)
+    const queryRef = query(albumRef, where("owner", "==", currentUser.uid))
+    const ref = preview ? albumRef : queryRef
 
     // attach listener
     const unsubscribe = onSnapshot(ref, (snapshot) => {
+      console.log("hej")
       if (!snapshot.exists()) {
         setData(null)
         setIsLoading(false)
@@ -43,17 +55,6 @@ const useGetAlbum = (id) => {
     return unsubscribe
 
   }
-  useEffect(() => {
-    getDoc()
-    return () => {
-      setIsLoading(null)
-      setIsError(null)
-      setError(null)
-      setData(null)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
-
 
   return {
     isLoading,

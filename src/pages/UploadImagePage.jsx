@@ -13,6 +13,7 @@ const UploadImagePage = () => {
   const uploadImage = useUploadImage();
   const { id } = useParams();
   const albumQuery = useGetAlbum(id);
+  console.log(albumQuery);
 
   //https://react-dropzone.js.org/
   const onDrop = useCallback(
@@ -37,6 +38,10 @@ const UploadImagePage = () => {
     accept: "image/gif, image/jpeg, image/png, image/webp, image/jpg",
     onDrop,
   });
+
+  if (albumQuery.isError) {
+    <Alert variant="danger">{albumQuery.error}</Alert>;
+  }
 
   if (albumQuery.isLoading) {
     return (
