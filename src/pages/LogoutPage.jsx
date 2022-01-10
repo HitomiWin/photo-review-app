@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 
 const LogoutPage = () => {
   const { logout } = useAuthContext();
-  const navigate = useNavigate();
 
   useEffect(() => {
     logout();
