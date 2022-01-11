@@ -8,15 +8,13 @@ import {
 import {
   doc,
   onSnapshot,
-  where,
-  query
 } from 'firebase/firestore'
 import {
   useAuthContext
 } from "../contexts/AuthContext";
 
 
-const useGetAlbum = (id, preview) => {
+const useGetAlbum = (id) => {
   const {
     currentUser
   } = useAuthContext();
@@ -31,13 +29,10 @@ const useGetAlbum = (id, preview) => {
     setError(null)
 
     // get document reference
-    const albumRef = doc(db, "albums", id)
-    const queryRef = query(albumRef, where("owner", "==", currentUser.uid))
-    const ref = preview ? albumRef : queryRef
+    const ref = doc(db, "albums", id)
 
     // attach listener
     const unsubscribe = onSnapshot(ref, (snapshot) => {
-      console.log("hej")
       if (!snapshot.exists()) {
         setData(null)
         setIsLoading(false)
@@ -55,6 +50,18 @@ const useGetAlbum = (id, preview) => {
     return unsubscribe
 
   }
+  useEffect(() => {
+    getDoc()
+    return () => {
+      setIsLoading(null)
+      setIsError(null)
+      setError(null)
+      setData(null)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
+
+
 
   return {
     isLoading,
@@ -62,6 +69,6 @@ const useGetAlbum = (id, preview) => {
     error,
     isError
   }
-}
 
+}
 export default useGetAlbum

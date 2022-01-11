@@ -1,6 +1,5 @@
 import {
   useState,
-  useEffect
 } from 'react'
 import {
   addDoc,
@@ -93,16 +92,6 @@ const useUploadImage = () => {
     }
 
   }
-
-  useEffect(() => {
-    return () => {
-      setError(null)
-      setIsError(null)
-      setIsSuccess(null)
-      setIsMutating(true)
-      setProgress(null)
-    }
-  }, [])
 
   return {
     error,

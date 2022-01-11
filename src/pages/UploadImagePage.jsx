@@ -10,10 +10,9 @@ import useUploadImage from "../hooks/useUploadImage";
 import ImageList from "../components/ImageList";
 
 const UploadImagePage = () => {
-  const uploadImage = useUploadImage();
   const { id } = useParams();
   const albumQuery = useGetAlbum(id);
-  console.log(albumQuery);
+  const uploadImage = useUploadImage();
 
   //https://react-dropzone.js.org/
   const onDrop = useCallback(
@@ -40,7 +39,7 @@ const UploadImagePage = () => {
   });
 
   if (albumQuery.isError) {
-    <Alert variant="danger">{albumQuery.error}</Alert>;
+    return <Alert variant="danger">{albumQuery.error}</Alert>;
   }
 
   if (albumQuery.isLoading) {
