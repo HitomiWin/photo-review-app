@@ -5,7 +5,6 @@ import {
   collection,
   query,
   orderBy,
-  where
 } from "firebase/firestore";
 import {
   db
@@ -14,20 +13,17 @@ import {
   useAuthContext
 } from "../contexts/AuthContext";
 
-const useGetAllImages = (id, col, preview) => {
+const useGetAllImages = (id, col) => {
   const {
     currentUser
   } = useAuthContext();
   const imagesRef = collection(db, col, id, "images");
   const queryKey = ["images", id];
-  const queryRef = preview ?
+  const queryRef =
     query(
       imagesRef,
       orderBy("created", 'desc')
-    ) : query(
-      imagesRef,
-      where("owner", "==", currentUser.uid),
-      orderBy("created", 'desc'))
+    )
 
   const getImagesQuery = useFirestoreQueryData(
     queryKey,

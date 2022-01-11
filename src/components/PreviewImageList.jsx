@@ -5,7 +5,7 @@ import { SRLWrapper } from "simple-react-lightbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import PreviewCard from "./cards/PreviewCard";
-import useCreateReviewedAlbum from "../hooks/useCreateReviewedAlbum";
+import useCreateAlbumWithImages from "../hooks/useCreateAlbumWithImages";
 import useGetAlbum from "../hooks/useGetAlbum";
 
 const PreviewImageList = ({ albumId }) => {
@@ -14,7 +14,7 @@ const PreviewImageList = ({ albumId }) => {
   const [likeAmount, setLikeAmount] = useState(0);
   const query = useGetAllImages(albumId, "albums");
   const { data: album } = useGetAlbum(albumId);
-  const submitQuery = useCreateReviewedAlbum();
+  const submitQuery = useCreateAlbumWithImages();
 
   useEffect(() => {
     setHasNull(
@@ -36,9 +36,10 @@ const PreviewImageList = ({ albumId }) => {
     .map(({ image }) => image);
 
   const handleSubmit = async (e) => {
+    const col = "review-albums";
     e.preventDefault();
     try {
-      await submitQuery.mutate(album, updateList);
+      await submitQuery.mutate(album, updateList, col);
     } catch (e) {
       console.log(e);
     }

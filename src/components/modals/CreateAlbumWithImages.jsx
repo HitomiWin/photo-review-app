@@ -12,9 +12,10 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
   const nameRef = useRef(null);
   const query = useCreateAlbumWithImages();
   const handleSubmit = async (e) => {
+    const col = "albums";
     e.preventDefault();
     try {
-      await query.mutate(nameRef.current.value, updateList);
+      await query.mutate(nameRef.current.value, updateList, col);
       await onHide(true);
       navigate("/");
     } catch (e) {

@@ -30,28 +30,41 @@ const useCreateAlbumWithImages = () => {
     currentUser
   } = useAuthContext()
 
-  const mutate = async (name, updateList) => {
+
+
+  const mutate = async ({
+    name,
+    album,
+    updateList,
+    col
+  }) => {
     setError(null)
     setIsError(null)
     setIsSuccess(null)
     setIsMutating(true)
 
+    let albumRef = col === "review-albums" ? {
+      created: serverTimestamp(),
+      name: album.name,
+      owner: album.owner
+    } : {
+      created: serverTimestamp(),
+      name,
+      owner: currentUser.uid,
+      linkId: uuid2,
+    }
+
     try {
-      await setDoc(doc(db, 'albums', uuid), {
-        created: serverTimestamp(),
-        name,
-        owner: currentUser.uid,
-        linkId: uuid2,
-      })
+      await setDoc(doc(db, col, uuid), albumRef)
 
       await updateList.forEach((image) => {
-        setDoc(doc(db, 'albums', uuid, "images", image._id), {
+        setDoc(doc(db, col, uuid, "images", image._id), {
           ...image,
           created: serverTimestamp()
         })
       })
       await updateList.forEach((image) => {
-        updateDoc(doc(db, 'albums', uuid, "images", image._id), {
+        updateDoc(doc(db, col, uuid, "images", image._id), {
           _id: deleteField()
         })
       })
