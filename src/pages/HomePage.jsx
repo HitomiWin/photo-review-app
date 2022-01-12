@@ -1,8 +1,8 @@
 import React from "react";
-import AlbumsList from "../components/AlbumsList";
+import AlbumList from "../components/AlbumList";
 
 const HomePage = () => {
-  return <AlbumsList />;
+  return <AlbumList />;
 };
 
 export default HomePage;
