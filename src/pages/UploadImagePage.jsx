@@ -15,7 +15,6 @@ const UploadImagePage = () => {
   const { id } = useParams();
   const albumQuery = useGetAlbum(id);
   const uploadImage = useUploadImage();
-  console.log(location.state);
 
   //https://react-dropzone.js.org/
   const onDrop = useCallback(

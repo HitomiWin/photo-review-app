@@ -9,15 +9,8 @@ import {
   doc,
   onSnapshot,
 } from 'firebase/firestore'
-import {
-  useAuthContext
-} from "../contexts/AuthContext";
-
 
 const useGetAlbum = (id) => {
-  const {
-    currentUser
-  } = useAuthContext();
   const [isLoading, setIsLoading] = useState(null)
   const [isError, setIsError] = useState(null)
   const [error, setError] = useState(null)

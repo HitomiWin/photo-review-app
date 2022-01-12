@@ -9,14 +9,8 @@ import {
 import {
   db
 } from "../firebase";
-import {
-  useAuthContext
-} from "../contexts/AuthContext";
 
 const useGetAllImages = (id, col) => {
-  const {
-    currentUser
-  } = useAuthContext();
   const imagesRef = collection(db, col, id, "images");
   const queryKey = ["images", id];
   const queryRef =

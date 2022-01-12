@@ -1,4 +1,4 @@
-import { Card, Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 const ReviewImageCard = ({ image }) => {
   return (
