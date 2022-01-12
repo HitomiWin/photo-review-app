@@ -12,6 +12,7 @@ const PreviewImageList = ({ albumId }) => {
   const [likeList, setLikeList] = useState([]);
   const [hasNull, setHasNull] = useState(true);
   const [likeAmount, setLikeAmount] = useState(0);
+  const [showMessage, setShowMessage] = useState(false);
   const query = useGetAllImages(albumId, "albums");
   const { data: album } = useGetAlbum(albumId);
   const submitQuery = useCreateAlbumWithImages();
@@ -40,6 +41,7 @@ const PreviewImageList = ({ albumId }) => {
     e.preventDefault();
     try {
       await submitQuery.mutate({ album, updateList, col });
+      setShowMessage(true);
     } catch (e) {
       console.log(e);
     }
@@ -64,26 +66,28 @@ const PreviewImageList = ({ albumId }) => {
     );
   }
 
-  return (
+  return showMessage ? (
+    <>
+      {submitQuery.isLoading && (
+        <div className="text-center">
+          <Spinner animation="border" variant="light" />
+        </div>
+      )}
+
+      {submitQuery.isError && (
+        <div className="text-center">
+          <Alert variant="danger">{submitQuery.error}</Alert>
+        </div>
+      )}
+      {submitQuery.isSuccess && (
+        <div className="text-center m-3">
+          <h4>Thank you for submitting!</h4>
+        </div>
+      )}
+    </>
+  ) : (
     query.data && (
       <div className="preview-container">
-        {submitQuery.isLoading && (
-          <div className="text-center">
-            <Spinner animation="border" variant="light" />
-          </div>
-        )}
-
-        {submitQuery.isError && (
-          <div className="text-center">
-            <Alert variant="danger">{submitQuery.error}</Alert>
-          </div>
-        )}
-        {submitQuery.isSuccess && (
-          <div className="text-center">
-            <h4>Thank you for submitting!</h4>
-          </div>
-        )}
-
         <h4 className="text-center color-yellow mt-3">Photo Gallery</h4>
         <div className="d-flex justify-content-end align-item-center mt-5">
           <div className="mx-5">

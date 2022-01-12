@@ -40,9 +40,7 @@ const ImageCard = ({
   return (
     <>
       <Col sm={12} md={4} lg={3} className="my-3">
-        <Card
-        // className={`image-card ${deleteImage.isMutating ? "mutating" : ""}`}
-        >
+        <Card>
           <Card.Header>
             <span title={image.name}>{image.name}</span>
             <div className="card-actions">

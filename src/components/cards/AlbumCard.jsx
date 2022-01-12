@@ -78,10 +78,6 @@ const AlbumCard = ({ album }) => {
               Link
             </Button>
           </Card.Body>
-
-          {/* <a href={album.url}>
-        <Card.Img variant="top" src={album.url} title={album._id} />
-      </a> */}
         </Card>
       </Col>
     </>
