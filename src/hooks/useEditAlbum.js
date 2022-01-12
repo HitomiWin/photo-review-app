@@ -37,15 +37,6 @@ const useEditAlbum = () => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      setError(null);
-      setIsError(null);
-      setIsSuccess(null);
-      setIsLoading(true);
-    }
-  }, [])
-
   return {
     error,
     isError,

@@ -8,7 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import SignupPage from "./pages/SignupPage";
 import UploadImagePage from "./pages/UploadImagePage";
-import CustomerReviewAlbumsPage from "./pages/CustomerReviewAlbumsPage";
+import CustomerReviewPage from "./pages/CustomerReviewPage";
 import PreviewPage from "./pages/PreviewPage";
 import ReviewAlbumPage from "./pages/ReviewAlbumPage";
 import RequireAuth from "./components/RequireAuth";
@@ -53,7 +53,7 @@ function App() {
             path="customer-review-albums"
             element={
               <RequireAuth redirectTo="/login">
-                <CustomerReviewAlbumsPage />
+                <CustomerReviewPage />
               </RequireAuth>
             }
           />

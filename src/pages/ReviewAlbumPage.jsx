@@ -37,7 +37,7 @@ const ReviewAlbumPage = () => {
   return (
     query.data && (
       <>
-        <h4 className="text-center color-yellow my-">My Photos</h4>
+        <h4 className="text-center color-yellow my-3">My Photos</h4>
         <SRLWrapper>
           <Masonry
             breakpointCols={masonryBreakpoints}

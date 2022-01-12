@@ -2,7 +2,7 @@ import { Alert, Row, Spinner } from "react-bootstrap";
 import useGetAllAlbums from "../hooks/useGetAllAlbums";
 import ReviewAlbumCard from "./cards/ReviewAlbumCard";
 
-const CustomerReviewsList = () => {
+const ReviewAlbumList = () => {
   const query = useGetAllAlbums("review-albums");
 
   return (
@@ -26,4 +26,4 @@ const CustomerReviewsList = () => {
   );
 };
 
-export default CustomerReviewsList;
+export default ReviewAlbumList;
