@@ -5,7 +5,7 @@ import useGetAllAlbums from "../hooks/useGetAllAlbums";
 import AlbumCard from "./cards/AlbumCard";
 import { v4 as uuidv4 } from "uuid";
 
-const MyAlbumsList = () => {
+const AlbumsList = () => {
   const [createModalShow, setCreateModalShow] = useState(false);
   const uuid = uuidv4();
 
@@ -45,4 +45,4 @@ const MyAlbumsList = () => {
   );
 };
 
-export default MyAlbumsList;
+export default AlbumsList;
