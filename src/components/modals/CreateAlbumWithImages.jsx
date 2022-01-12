@@ -15,8 +15,9 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
     const col = "albums";
     e.preventDefault();
     try {
-      await query.mutate(nameRef.current.value, updateList, col);
-      await onHide(true);
+      const name = nameRef.current.value;
+      await query.mutate({ name, updateList, col });
+      onHide(true);
       navigate("/");
     } catch (e) {
       console.log(e);

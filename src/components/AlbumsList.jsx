@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Alert, Row, Spinner } from "react-bootstrap";
-import CreateAlbumForm from "./modals/CreateAlbumForm";
+import CreateAlbumModal from "./modals/CreateAlbumModal";
 import useGetAllAlbums from "../hooks/useGetAllAlbums";
 import AlbumCard from "./cards/AlbumCard";
 import { v4 as uuidv4 } from "uuid";
@@ -23,7 +23,7 @@ const AlbumsList = () => {
           Create an Album ?
         </Button>
       </div>
-      <CreateAlbumForm
+      <CreateAlbumModal
         show={createModalShow}
         onHide={() => setCreateModalShow(false)}
         uuid={uuid}

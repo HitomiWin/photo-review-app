@@ -42,6 +42,7 @@ const useCreateAlbumWithImages = () => {
     setIsError(null)
     setIsSuccess(null)
     setIsMutating(true)
+    console.log(album)
 
     let albumRef = col === "review-albums" ? {
       created: serverTimestamp(),

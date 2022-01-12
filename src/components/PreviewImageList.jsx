@@ -39,7 +39,7 @@ const PreviewImageList = ({ albumId }) => {
     const col = "review-albums";
     e.preventDefault();
     try {
-      await submitQuery.mutate(album, updateList, col);
+      await submitQuery.mutate({ album, updateList, col });
     } catch (e) {
       console.log(e);
     }

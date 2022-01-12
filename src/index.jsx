@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import SimpleReactLightbox from "simple-react-lightbox";
 import AuthContextProvider from "./contexts/AuthContext";
-import AlbumContextProvider from "./contexts/AlbumContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/scss/App.scss";
 import App from "./App";
@@ -24,11 +23,9 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthContextProvider>
-          <AlbumContextProvider>
-            <SimpleReactLightbox>
-              <App />
-            </SimpleReactLightbox>
-          </AlbumContextProvider>
+          <SimpleReactLightbox>
+            <App />
+          </SimpleReactLightbox>
         </AuthContextProvider>
       </BrowserRouter>
     </QueryClientProvider>

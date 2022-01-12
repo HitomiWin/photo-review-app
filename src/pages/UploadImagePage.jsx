@@ -1,18 +1,21 @@
 import React, { useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImages } from "@fortawesome/free-solid-svg-icons";
-import { Alert, ProgressBar, Spinner } from "react-bootstrap";
+import { Alert, ProgressBar, Spinner, Button } from "react-bootstrap";
 
 import useGetAlbum from "../hooks/useGetAlbum";
 import useUploadImage from "../hooks/useUploadImage";
 import ImageList from "../components/ImageList";
 
 const UploadImagePage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams();
   const albumQuery = useGetAlbum(id);
   const uploadImage = useUploadImage();
+  console.log(location.state);
 
   //https://react-dropzone.js.org/
   const onDrop = useCallback(
@@ -37,6 +40,21 @@ const UploadImagePage = () => {
     accept: "image/gif, image/jpeg, image/png, image/webp, image/jpg",
     onDrop,
   });
+
+  if (!location.state) {
+    return (
+      <div className="text-center m-3">
+        <h4>Somthing went wrong...</h4>
+        <Button
+          variant="light"
+          className="text-center m-3"
+          onClick={() => navigate("/")}
+        >
+          Go Home
+        </Button>
+      </div>
+    );
+  }
 
   if (albumQuery.isError) {
     return <Alert variant="danger">{albumQuery.error}</Alert>;

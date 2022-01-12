@@ -3,7 +3,7 @@ import { Button, Modal, Form, Alert, Spinner } from "react-bootstrap";
 import useCreateAlbum from "../../hooks/useCreateAlbum";
 import { useNavigate } from "react-router-dom";
 
-const CreateAlbumForm = ({ show, onHide, uuid }) => {
+const CreateAlbumModal = ({ show, onHide, uuid }) => {
   const nameRef = useRef(null);
   const query = useCreateAlbum();
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const CreateAlbumForm = ({ show, onHide, uuid }) => {
     e.preventDefault();
     try {
       await query.mutate(nameRef.current.value, uuid);
-      navigate(`/upload-image/${uuid}`);
+      navigate(`/upload-image/${uuid}`, { state: { albumId: `${uuid}` } });
     } catch (e) {
       console.log(e);
     }
@@ -58,4 +58,4 @@ const CreateAlbumForm = ({ show, onHide, uuid }) => {
   );
 };
 
-export default CreateAlbumForm;
+export default CreateAlbumModal;

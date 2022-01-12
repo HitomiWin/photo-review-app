@@ -62,7 +62,11 @@ const AlbumCard = ({ album }) => {
             </div>
           </Card.Header>
           <Card.Body className="d-flex justify-content-between">
-            <Button onClick={() => navigate(`upload-image/${album._id}`)}>
+            <Button
+              onClick={() =>
+                navigate(`upload-image/${album._id}`, { state: `${album._id}` })
+              }
+            >
               Upload
             </Button>
             <Button
