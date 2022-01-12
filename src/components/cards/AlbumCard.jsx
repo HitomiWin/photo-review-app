@@ -17,7 +17,7 @@ const AlbumCard = ({ album }) => {
     await deleteAlbum.mutate(album);
   };
 
-  const url = `https://brave-knuth-ae749f.netlify.app/preview/${album.linkId}${album._id}`;
+  const url = `https://hitomi-phogographer.netlify.app/preview/${album.linkId}${album._id}`;
 
   return (
     <>
@@ -32,7 +32,7 @@ const AlbumCard = ({ album }) => {
         onHide={() => setLinkModalShow(false)}
       />
 
-      <Col sm={12} md={4} lg={3} className="my-3">
+      <Col sm={10} md={4} lg={3} className="my-3 ml-auto">
         <Card
           className={`album-card ${deleteAlbum.isMutating ? "mutating" : ""}`}
         >
