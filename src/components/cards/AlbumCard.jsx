@@ -2,20 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
-import useDeleteAlbum from "../../hooks/useDeleteAlbum";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import EditAlbumName from "../modals/EditAlbumName";
 import ShowLink from "../modals/ShowLink";
 
 const AlbumCard = ({ album }) => {
   const [linkModalShow, setLinkModalShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-  const deleteAlbum = useDeleteAlbum(album);
   const navigate = useNavigate();
-  const handleDeleteAlbumClick = async (e) => {
-    e.stopPropagation();
-    await deleteAlbum.mutate(album);
-  };
 
   const url = `https://hitomi-photographer.netlify.app/preview/${album.linkId}${album._id}`;
 
@@ -33,22 +27,12 @@ const AlbumCard = ({ album }) => {
       />
 
       <Col sm={10} md={4} lg={3} className="my-3 ml-auto">
-        <Card
-          className={`album-card ${deleteAlbum.isMutating ? "mutating" : ""}`}
-        >
+        <Card>
           <Card.Header>
             <span className="album-filename" title={album.name}>
               {album.name}
             </span>
             <div className="card-actions">
-              <Button
-                variant="info"
-                size="lg"
-                disabled={deleteAlbum.isMutating}
-                onClick={handleDeleteAlbumClick}
-              >
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </Button>
               <Button
                 variant="info"
                 size="lg"

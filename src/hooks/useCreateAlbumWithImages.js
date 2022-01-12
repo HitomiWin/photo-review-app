@@ -18,7 +18,6 @@ import {
   v4 as uuidv4
 } from "uuid"
 
-
 const useCreateAlbumWithImages = () => {
   const [error, setError] = useState(null);
   const [isError, setIsError] = useState(null);
@@ -30,8 +29,6 @@ const useCreateAlbumWithImages = () => {
     currentUser
   } = useAuthContext()
 
-
-
   const mutate = async ({
     name,
     album,
@@ -42,7 +39,6 @@ const useCreateAlbumWithImages = () => {
     setIsError(null)
     setIsSuccess(null)
     setIsMutating(true)
-    console.log(album)
 
     let albumRef = col === "review-albums" ? {
       created: serverTimestamp(),

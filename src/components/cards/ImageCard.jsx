@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare as noCheckedBox } from "@fortawesome/free-regular-svg-icons";
-import useDeleteImage from "../../hooks/useDeleteImage";
 
 const ImageCard = ({
   albumId,
@@ -14,11 +13,6 @@ const ImageCard = ({
   isDataLoading,
 }) => {
   const [checked, setChecked] = useState(false);
-  const deleteImage = useDeleteImage(image);
-  const handleDeleteImageClick = async (e) => {
-    e.stopPropagation();
-    await deleteImage.mutate(albumId, image._id);
-  };
 
   useEffect(() => {
     setCheckedList((state) => [...state, { image, checked: false }]);
@@ -57,14 +51,6 @@ const ImageCard = ({
                 ) : (
                   <FontAwesomeIcon icon={noCheckedBox} size="lg" />
                 )}
-              </Button>
-              <Button
-                variant="info"
-                size="sm"
-                disabled={deleteImage.isMutating}
-                onClick={handleDeleteImageClick}
-              >
-                <FontAwesomeIcon icon={faTrashAlt} size="lg" />
               </Button>
             </div>
           </Card.Header>

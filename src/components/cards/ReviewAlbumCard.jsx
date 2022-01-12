@@ -10,7 +10,9 @@ const ReviewAlbumCard = ({ album }) => {
       <Col sm={12} md={4} lg={3} className="my-3">
         <Card
           onClick={() => {
-            navigate(`/review-album/${album._id}`);
+            navigate(`/review-album/${album._id}`, {
+              state: { albumId: `${album._id}` },
+            });
           }}
         >
           <Card.Header>
