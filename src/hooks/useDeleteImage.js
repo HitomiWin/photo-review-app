@@ -33,15 +33,6 @@ const useDeleteImage = () => {
     }
   }
 
-  useEffect(() => {
-    return () => {
-      setError(null)
-      setIsError(false)
-      setIsMutating(true)
-      setIsSuccess(false)
-    }
-  }, [])
-
   return {
     error,
     isError,

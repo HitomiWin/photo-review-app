@@ -1,6 +1,14 @@
-import { useState, useEffect } from 'react'
-import { doc, deleteDoc } from 'firebase/firestore'
-import { db } from '../firebase'
+import {
+  useState,
+  useEffect
+} from 'react'
+import {
+  doc,
+  deleteDoc
+} from 'firebase/firestore'
+import {
+  db
+} from '../firebase'
 
 const useDeleteAlbum = () => {
   const [error, setError] = useState(null)
@@ -20,14 +28,6 @@ const useDeleteAlbum = () => {
       setIsMutating(false)
     }
   }
-
-  useEffect(()=>{
-    return()=>{
-      setError(null)
-      setIsError(false)
-      setIsMutating(true)
-    }
-  },[])
 
   return {
     error,
