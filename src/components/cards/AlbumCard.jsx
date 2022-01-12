@@ -17,7 +17,7 @@ const AlbumCard = ({ album }) => {
     await deleteAlbum.mutate(album);
   };
 
-  const url = `https://hitomi-phogographer.netlify.app/preview/${album.linkId}${album._id}`;
+  const url = `https://hitomi-photographer.netlify.app/preview/${album.linkId}${album._id}`;
 
   return (
     <>

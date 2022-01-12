@@ -33,7 +33,7 @@ const CreateAlbumModal = ({ show, onHide, uuid }) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <h4 className="text-center mt-3 color-blue ">Give your album a name</h4>
+        <h4 className="text-center mt-3 color-blue ">Name?</h4>
         {query.isError && <Alert>{query.error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="m-3">
