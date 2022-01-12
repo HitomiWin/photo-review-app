@@ -8,7 +8,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 const Navigation = () => {
   const { currentUser } = useAuthContext();
   return (
-    <Navbar bg="light" expand="md">
+    <Navbar bg="light">
       <Container>
         <Link to="/" className="navbar-brand  text-info">
           <span role="img" aria-label="A piggy bank" className="me-3">
