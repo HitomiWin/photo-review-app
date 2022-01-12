@@ -1,20 +1,12 @@
 import { useParams } from "react-router-dom";
-import { Alert, Spinner } from "react-bootstrap";
+import { Alert, Spinner, Row } from "react-bootstrap";
 import useGetAllImages from "../hooks/useGetAllImages";
 import { SRLWrapper } from "simple-react-lightbox";
 import ReviewImageCard from "../components/cards/ReviewImageCard";
-import Masonry from "react-masonry-css";
 
 const ReviewAlbumPage = () => {
   const { id: albumId } = useParams();
   const query = useGetAllImages(albumId, "review-albums");
-  const masonryBreakpoints = {
-    default: 4,
-    576: 2,
-    768: 3,
-    992: 4,
-  };
-
   if (query.isLoading) {
     return (
       <div className="center">
@@ -39,11 +31,7 @@ const ReviewAlbumPage = () => {
       <>
         <h4 className="text-center color-yellow my-3">My Photos</h4>
         <SRLWrapper>
-          <Masonry
-            breakpointCols={masonryBreakpoints}
-            className="review-masonry"
-            columnClassName="review-masonry-column"
-          >
+          <Row className="justify-content-center">
             {query.data.map((image) => (
               <ReviewImageCard
                 key={image._id}
@@ -51,7 +39,7 @@ const ReviewAlbumPage = () => {
                 image={image}
               />
             ))}
-          </Masonry>
+          </Row>
         </SRLWrapper>
       </>
     )

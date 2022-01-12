@@ -29,13 +29,13 @@ const Navigation = () => {
                   id="basic-nav-dropdown"
                 >
                   <NavLink to="/" className="dropdown-item">
-                    My Alubms
+                    Alubms
                   </NavLink>
                   <NavLink
                     to="/customer-review-albums"
                     className="dropdown-item"
                   >
-                    Review
+                    Reviews
                   </NavLink>
                   <NavDropdown.Divider />
                   <NavLink to="/logout" className="dropdown-item ">

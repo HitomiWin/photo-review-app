@@ -1,8 +1,8 @@
-import { Card } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 
 const ReviewImageCard = ({ image }) => {
   return (
-    <>
+    <Col sm={12} md={4} lg={3} className="my-3">
       <Card>
         <a href={image.url}>
           <Card.Img
@@ -13,7 +13,7 @@ const ReviewImageCard = ({ image }) => {
           />
         </a>
       </Card>
-    </>
+    </Col>
   );
 };
 
