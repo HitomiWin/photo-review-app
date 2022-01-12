@@ -87,7 +87,12 @@ const PreviewCard = ({ image, likeList, setLikeList }) => {
               <FontAwesomeIcon icon={faFrown} />
             </span>
             <a href={image.url}>
-              <Card.Img variant="top" src={image.url} title={image._id} />
+              <Card.Img
+                className="image-card"
+                variant="top"
+                src={image.url}
+                title={image._id}
+              />
             </a>
           </div>
         </Card>

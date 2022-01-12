@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       <Navigation />
-      <Container id="App" className="py-3">
+      <Container id="App" className="p-3">
         <Routes>
           <Route path="preview/:id" element={<PreviewPage />} />
           <Route path="login" element={<LoginPage />} />

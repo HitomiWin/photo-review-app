@@ -42,7 +42,6 @@ const ImageCard = ({
       <Col sm={12} md={4} lg={3} className="my-3">
         <Card>
           <Card.Header>
-            <span title={image.name}>{image.name}</span>
             <div className="card-actions">
               <Button
                 variant="info"
@@ -70,7 +69,12 @@ const ImageCard = ({
             </div>
           </Card.Header>
           <a href={image.url}>
-            <Card.Img variant="top" src={image.url} title={image._id} />
+            <Card.Img
+              className="image-card"
+              variant="top"
+              src={image.url}
+              title={image._id}
+            />
           </a>
         </Card>
       </Col>

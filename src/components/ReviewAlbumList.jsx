@@ -15,8 +15,7 @@ const ReviewAlbumList = () => {
       )}
       {query.isError && <Alert variant="danger">{query.error}</Alert>}
       <Row className="justify-content-center">
-        {!query.isLoading &&
-          !query.isError &&
+        {query.data &&
           query.data.map((album) => (
             <ReviewAlbumCard key={album._id} album={album} />
           ))}

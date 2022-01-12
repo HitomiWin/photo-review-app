@@ -5,7 +5,12 @@ const ReviewImageCard = ({ image }) => {
     <>
       <Card>
         <a href={image.url}>
-          <Card.Img variant="top" src={image.url} title={image._id} />
+          <Card.Img
+            className="image-card"
+            variant="top"
+            src={image.url}
+            title={image._id}
+          />
         </a>
       </Card>
     </>

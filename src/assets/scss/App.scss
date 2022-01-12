@@ -79,3 +79,13 @@ span.like {
 span.dislike {
   visibility: visible;
 }
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #aa8a0b;
+}
+.image-card {
+  height: 30vh;
+  object-fit: cover;
+  margin-left: auto;
+  width: 100%;
+}
