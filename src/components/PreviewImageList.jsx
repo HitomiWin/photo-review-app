@@ -68,7 +68,6 @@ const PreviewImageList = ({ albumId }) => {
       </p>
     );
   }
-  submitQuery.isLoading = true;
   return showMessage ? (
     <>
       {submitQuery.isLoading && (
