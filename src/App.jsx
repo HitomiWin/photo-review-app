@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import { ReactQueryDevtools } from "react-query/devtools";
 import Navigation from "./pages/partials/Navigation";
 import HomePage from "./pages/HomePage";
 import PageNotFound from "./pages/PageNotFound";
@@ -60,6 +61,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Container>
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </>
   );
 }

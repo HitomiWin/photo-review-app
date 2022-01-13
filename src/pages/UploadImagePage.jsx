@@ -107,14 +107,10 @@ const UploadImagePage = () => {
         )}
 
         {uploadImage.isError && (
-          <Alert className="mt-3" variant="danger">
-            {uploadImage.error}
-          </Alert>
+          <h5 className="mt-3 text-danger">{uploadImage.error}</h5>
         )}
         {uploadImage.isSuccess && (
-          <Alert className="mt-3" variant="success">
-            Uploaded the files successflly{" "}
-          </Alert>
+          <h5 className="mt-3 text-success">Uploaded the files successflly</h5>
         )}
       </div>
       <div className="mt-6">
