@@ -37,9 +37,9 @@ const ImageList = ({ isUploading, albumId }) => {
 
   return (
     query.data && (
-      <>
-        <h4 className="text-center color-yellow my-">My Photos</h4>
-        <div className="d-flex justify-content-end align-item-center">
+      <div className="pt-3">
+        <h4 className="text-center color-yellow">My Photos</h4>
+        <div className="d-flex justify-content-end align-item-center py-3">
           <Button
             variant="light"
             disabled={!hasChecked || isUploading}
@@ -67,7 +67,7 @@ const ImageList = ({ isUploading, albumId }) => {
             ))}
           </Row>
         </SRLWrapper>
-      </>
+      </div>
     )
   );
 };

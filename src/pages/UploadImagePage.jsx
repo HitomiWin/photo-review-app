@@ -91,24 +91,33 @@ const UploadImagePage = () => {
               <p>"Error! Files of this type are not acceptable"</p>
             )
           ) : (
-            <div>
-              <FontAwesomeIcon icon={faImages} size="lg" className="mb-2" />
+            <div className="mb-3">
+              <FontAwesomeIcon icon={faImages} size="lg" className="my-2" />
               <p>Drop files here or click to upload.</p>
             </div>
           )}
         </div>
         {uploadImage.progress !== null && (
-          <ProgressBar variant="success" animated now={uploadImage.progress} />
+          <ProgressBar
+            className="mt-3"
+            variant="success"
+            animated
+            now={uploadImage.progress}
+          />
         )}
 
         {uploadImage.isError && (
-          <Alert variant="danger">{uploadImage.error}</Alert>
+          <Alert className="mt-3" variant="danger">
+            {uploadImage.error}
+          </Alert>
         )}
         {uploadImage.isSuccess && (
-          <Alert variant="success">Uploaded the files successflly </Alert>
+          <Alert className="mt-3" variant="success">
+            Uploaded the files successflly{" "}
+          </Alert>
         )}
       </div>
-      <div>
+      <div className="mt-6">
         <ImageList isUploading={uploadImage.progress} albumId={id} />
       </div>
     </>
