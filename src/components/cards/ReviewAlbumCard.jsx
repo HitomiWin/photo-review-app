@@ -7,7 +7,7 @@ const ReviewAlbumCard = ({ album }) => {
   const navigate = useNavigate();
   return (
     <>
-      <Col sm={12} md={4} lg={3} className="my-3">
+      <Col sm={12} md={4} lg={3} className="my-3 review-album-card">
         <Card
           onClick={() => {
             navigate(`/review-album/${album._id}`, {
