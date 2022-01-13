@@ -11,6 +11,7 @@ const AlbumCard = ({ album }) => {
   const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate();
 
+  //this is url to send to customer to get reviews
   const url = `https://hitomi-photographer.netlify.app/preview/${album.linkId}${album._id}`;
 
   return (

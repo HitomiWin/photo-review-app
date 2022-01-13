@@ -18,11 +18,14 @@ const PreviewImageList = ({ albumId }) => {
   const submitQuery = useCreateAlbumWithImages();
 
   useEffect(() => {
+    // checking all likebutton are checked or not
     setHasNull(
       likeList.some(
         (item) => (item.isLiked === null) | (item.isDisLiked === null)
       )
     );
+
+    //checking how many liked has
     let i = 0;
     likeList.forEach((like) => {
       if (like.isLiked) {
@@ -65,7 +68,7 @@ const PreviewImageList = ({ albumId }) => {
       </p>
     );
   }
-
+  submitQuery.isLoading = true;
   return showMessage ? (
     <>
       {submitQuery.isLoading && (

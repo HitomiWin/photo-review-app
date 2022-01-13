@@ -24,6 +24,10 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
     }
   };
 
+  if (query.isError) {
+    return <Alert variant="danger">{query.error}</Alert>;
+  }
+
   if (query.isLoading) {
     return (
       <>
@@ -40,7 +44,6 @@ const CreateAlbumWithImages = ({ show, onHide, imageList }) => {
         centered
       >
         <h4 className="text-center mt-3 color-blue ">Name</h4>
-        {query.isError && <Alert>{query.error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="m-3">
             <Form.Control

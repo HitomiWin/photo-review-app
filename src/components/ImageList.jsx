@@ -9,6 +9,18 @@ const ImageList = ({ isUploading, albumId }) => {
   const [checkedList, setCheckedList] = useState([]);
   const [createModalShow, setCreateModalShow] = useState(false);
   const query = useGetAllImages(albumId, "albums");
+  // to stop to click checkbox during upploading doesn't show imagelist
+  if (isUploading) {
+    return (
+      <div className="spinner-wrapper">
+        <Spinner animation="border" variant="light" />
+      </div>
+    );
+  }
+
+  if (query.isError) {
+    return <Alert variant="danger">{query.error}</Alert>;
+  }
 
   if (query.isLoading) {
     return (
@@ -16,9 +28,6 @@ const ImageList = ({ isUploading, albumId }) => {
         <Spinner animation="border" variant="light" />
       </div>
     );
-  }
-  if (query.isError) {
-    return <Alert variant="danger">{query.error}</Alert>;
   }
 
   if (!query.data.length) {
@@ -44,26 +53,20 @@ const ImageList = ({ isUploading, albumId }) => {
           onHide={() => setCreateModalShow(false)}
           imageList={checkedList}
         />
-        {query.isLoading ? (
-          <div className="spinner-wrapper">
-            <Spinner animation="border" variant="light" />;
-          </div>
-        ) : (
-          <SRLWrapper>
-            <Row className="justify-content-center">
-              {query.data.map((image) => (
-                <ImageCard
-                  key={image._id}
-                  albumId={albumId}
-                  image={image}
-                  checkedList={checkedList}
-                  setCheckedList={setCheckedList}
-                  isUploading={isUploading}
-                />
-              ))}
-            </Row>
-          </SRLWrapper>
-        )}
+        <SRLWrapper>
+          <Row className="justify-content-center">
+            {query.data.map((image) => (
+              <ImageCard
+                key={image._id}
+                albumId={albumId}
+                image={image}
+                checkedList={checkedList}
+                setCheckedList={setCheckedList}
+                isUploading={isUploading}
+              />
+            ))}
+          </Row>
+        </SRLWrapper>
       </>
     )
   );

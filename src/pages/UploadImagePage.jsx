@@ -4,7 +4,6 @@ import { useDropzone } from "react-dropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImages } from "@fortawesome/free-solid-svg-icons";
 import { Alert, ProgressBar, Spinner, Button } from "react-bootstrap";
-
 import useGetAlbum from "../hooks/useGetAlbum";
 import useUploadImage from "../hooks/useUploadImage";
 import ImageList from "../components/ImageList";
@@ -89,7 +88,7 @@ const UploadImagePage = () => {
             isDragAccept ? (
               <p>Acceptable</p>
             ) : (
-              <p>"Error! Files of this type are not accepted"</p>
+              <p>"Error! Files of this type are not acceptable"</p>
             )
           ) : (
             <div>
@@ -109,7 +108,9 @@ const UploadImagePage = () => {
           <Alert variant="success">Uploaded the files successflly </Alert>
         )}
       </div>
-      <ImageList isUploading={uploadImage.progress} albumId={id} />
+      <div>
+        <ImageList isUploading={uploadImage.progress} albumId={id} />
+      </div>
     </>
   );
 };

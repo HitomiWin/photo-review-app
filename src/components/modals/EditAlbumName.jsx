@@ -4,19 +4,22 @@ import useEditAlbum from "../../hooks/useEditAlbum";
 
 const EditAlbumName = ({ album, show, onHide }) => {
   const nameRef = useRef(null);
-  const editQuery = useEditAlbum();
+  const query = useEditAlbum();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await editQuery.mutate(album._id, nameRef.current.value);
+      await query.mutate(album._id, nameRef.current.value);
       onHide(true);
     } catch (e) {
       console.log(e);
     }
   };
+  if (query.isError) {
+    return <Alert variant="danger">{query.error}</Alert>;
+  }
 
-  if (editQuery.isLoading) {
+  if (query.isLoading) {
     return (
       <>
         <Spinner animation="border" variant="light" />;
@@ -32,7 +35,6 @@ const EditAlbumName = ({ album, show, onHide }) => {
         centered
       >
         <h4 className="text-center mt-3 color-blue ">Edit name ? </h4>
-        {editQuery.isError && <Alert>{editQuery.error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="m-3">
             <Form.Control

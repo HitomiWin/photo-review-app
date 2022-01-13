@@ -5,7 +5,6 @@ import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faSquare as noCheckedBox } from "@fortawesome/free-regular-svg-icons";
 
 const ImageCard = ({
-  albumId,
   image,
   checkedList,
   setCheckedList,
@@ -22,13 +21,14 @@ const ImageCard = ({
   const toggleChecked = () => {
     setChecked(!checked); // to change buttons color
     let updatedList = checkedList.map((item) => {
+      //make a new list which is updated
       if (item.image._id === image._id) {
         return { ...item, checked: !item.checked };
       }
       return item;
     });
 
-    setCheckedList(updatedList);
+    setCheckedList(updatedList); // overwrite updatelist
   };
 
   return (

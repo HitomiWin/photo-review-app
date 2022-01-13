@@ -18,6 +18,10 @@ const CreateAlbumModal = ({ show, onHide, uuid }) => {
     }
   };
 
+  if (query.isError) {
+    return <Alert variant="danger">{query.error}</Alert>;
+  }
+
   if (query.isLoading) {
     return (
       <div className="text-center">
@@ -34,7 +38,6 @@ const CreateAlbumModal = ({ show, onHide, uuid }) => {
         centered
       >
         <h4 className="text-center mt-3 color-blue ">Name?</h4>
-        {query.isError && <Alert>{query.error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="m-3">
             <Form.Control

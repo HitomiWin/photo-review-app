@@ -1,14 +1,6 @@
-import {
-  useState,
-} from "react";
-import {
-  doc,
-  updateDoc
-} from "firebase/firestore";
-
-import {
-  db
-} from "../firebase";
+import { useState } from "react";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const useEditAlbum = () => {
   const [error, setError] = useState(null);

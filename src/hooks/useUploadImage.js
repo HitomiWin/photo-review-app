@@ -1,23 +1,8 @@
-import {
-  useState,
-} from 'react'
-import {
-  addDoc,
-  collection,
-  serverTimestamp
-} from 'firebase/firestore'
-import {
-  ref,
-  getDownloadURL,
-  uploadBytesResumable
-} from 'firebase/storage'
-import {
-  useAuthContext
-} from '../contexts/AuthContext'
-import {
-  db,
-  storage
-} from '../firebase'
+import { useState, } from 'react'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
+import { useAuthContext } from '../contexts/AuthContext'
+import { db, storage } from '../firebase'
 
 const useUploadImage = () => {
   const [error, setError] = useState(null);
@@ -25,10 +10,7 @@ const useUploadImage = () => {
   const [isMutating, setIsMutating] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
   const [progress, setProgress] = useState(null)
-  const {
-    currentUser
-  } = useAuthContext()
-
+  const { currentUser } = useAuthContext()
 
   const mutate = async (image, id) => {
     setError(null)
@@ -80,7 +62,6 @@ const useUploadImage = () => {
         url,
       })
 
-      //Success
       setProgress(null)
       setIsSuccess(true)
       setIsMutating(false)

@@ -5,23 +5,30 @@ import ReviewAlbumCard from "./cards/ReviewAlbumCard";
 const ReviewAlbumList = () => {
   const query = useGetAllAlbums("review-albums");
 
+  if (query.isError) {
+    return <Alert variant="danger">{query.error}</Alert>;
+  }
+
+  if (query.isLoading) {
+    return (
+      <div className="center">
+        <Spinner animation="border" variant="light" />;
+      </div>
+    );
+  }
+
   return (
-    <>
-      <h4 className="text-center color-yellow my-3">My Reviews</h4>
-      {query.isLoading && (
-        <div className="spinner-wrapper">
-          <Spinner animation="border" variant="light" />;
-        </div>
-      )}
-      {query.isError && <Alert variant="danger">{query.error}</Alert>}
-      <Row className="justify-content-center">
-        {query.data &&
-          query.data.map((album) => (
-            <ReviewAlbumCard key={album._id} album={album} />
-          ))}
-      </Row>
-      <div>Hej</div>
-    </>
+    query.data && (
+      <>
+        <h4 className="text-center color-yellow my-3">My Reviews</h4>
+        <Row className="justify-content-center">
+          {query.data &&
+            query.data.map((album) => (
+              <ReviewAlbumCard key={album._id} album={album} />
+            ))}
+        </Row>
+      </>
+    )
   );
 };
 

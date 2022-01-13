@@ -3,7 +3,6 @@ import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 
-
 const SignupPage = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -28,6 +27,7 @@ const SignupPage = () => {
       setIsLoading(false)
     }
   }
+  
   return (
     <>
       <Row>

@@ -8,40 +8,45 @@ import { v4 as uuidv4 } from "uuid";
 const AlbumList = () => {
   const [createModalShow, setCreateModalShow] = useState(false);
   const uuid = uuidv4();
-
   const query = useGetAllAlbums("albums");
 
-  return (
-    <>
-      <h4 className="text-center color-yellow my-3">My Albums</h4>
-      <div className="text-center">
-        <Button
-          variant="primary"
-          className="text-button  text-center my-3"
-          onClick={() => setCreateModalShow(true)}
-        >
-          Create an Album ?
-        </Button>
+  if (query.isError) {
+    return <Alert variant="danger">{query.error}</Alert>;
+  }
+
+  if (query.isLoading) {
+    return (
+      <div className="center">
+        <Spinner animation="border" variant="light" />;
       </div>
-      <CreateAlbumModal
-        show={createModalShow}
-        onHide={() => setCreateModalShow(false)}
-        uuid={uuid}
-      />
-      {query.isError && <Alert variant="danger">{query.error}</Alert>}
-      {query.isLoading && (
-        <div className="spinner-wrapper">
-          <Spinner animation="border" variant="light" />;
+    );
+  }
+
+  return (
+    query.data && (
+      <>
+        <h4 className="text-center color-yellow my-3">My Albums</h4>
+        <div className="text-center">
+          <Button
+            variant="primary"
+            className="text-button  text-center my-3"
+            onClick={() => setCreateModalShow(true)}
+          >
+            Create an Album ?
+          </Button>
         </div>
-      )}
-      <Row className="justify-content-center">
-        {!query.isLoading &&
-          !query.isError &&
-          query.data.map((album) => (
+        <CreateAlbumModal
+          show={createModalShow}
+          onHide={() => setCreateModalShow(false)}
+          uuid={uuid}
+        />
+        <Row className="justify-content-center">
+          {query.data.map((album) => (
             <AlbumCard key={album._id} album={album} />
           ))}
-      </Row>
-    </>
+        </Row>
+      </>
+    )
   );
 };
 
