@@ -9,9 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import SignupPage from "./pages/SignupPage";
 import UploadImagePage from "./pages/UploadImagePage";
-import CustomerReviewPage from "./pages/CustomerReviewPage";
 import PreviewPage from "./pages/PreviewPage";
-import ReviewAlbumPage from "./pages/ReviewAlbumPage";
 import RequireAuth from "./components/RequireAuth";
 
 function App() {
@@ -39,22 +37,6 @@ function App() {
             element={
               <RequireAuth redirectTo="/login">
                 <UploadImagePage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="review-album/:id"
-            element={
-              <RequireAuth redirectTo="/login">
-                <ReviewAlbumPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="customer-review-albums"
-            element={
-              <RequireAuth redirectTo="/login">
-                <CustomerReviewPage />
               </RequireAuth>
             }
           />

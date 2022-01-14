@@ -1,8 +1,22 @@
-import { useState } from "react"
-import { doc, setDoc, updateDoc, deleteField, serverTimestamp } from "firebase/firestore"
-import { useAuthContext } from "../contexts/AuthContext"
-import { db } from "../firebase"
-import { v4 as uuidv4 } from "uuid"
+import {
+  useState
+} from "react"
+import {
+  doc,
+  setDoc,
+  updateDoc,
+  deleteField,
+  serverTimestamp
+} from "firebase/firestore"
+import {
+  useAuthContext
+} from "../contexts/AuthContext"
+import {
+  db
+} from "../firebase"
+import {
+  v4 as uuidv4
+} from "uuid"
 
 const useCreateAlbumWithImages = () => {
   const [error, setError] = useState(null);
@@ -15,16 +29,24 @@ const useCreateAlbumWithImages = () => {
     currentUser
   } = useAuthContext()
 
-  const mutate = async ({ name, album, updateList, col }) => {
+  const mutate = async ({
+    name,
+    album,
+    updateList,
+    type
+  }) => {
     setError(null)
     setIsError(null)
     setIsSuccess(null)
     setIsMutating(true)
 
-    let albumRef = col === "review-albums" ? {
+    const date = new Date()
+
+    let albumRef = type === "review" ? {
       created: serverTimestamp(),
-      name: album.name,
-      owner: album.owner
+      name: `${album.name}-(${date.toLocaleDateString()}-${date.toLocaleTimeString()})`,
+      owner: album.owner,
+      linkId: uuid2,
     } : {
       created: serverTimestamp(),
       name,
@@ -33,20 +55,20 @@ const useCreateAlbumWithImages = () => {
     }
 
     try {
-      await setDoc(doc(db, col, uuid), albumRef)
+      await setDoc(doc(db, "albums", uuid), albumRef)
 
       await updateList.forEach((image) => {
-        setDoc(doc(db, col, uuid, "images", image._id), {
+        setDoc(doc(db, "albums", uuid, "images", image._id), {
           ...image,
           created: serverTimestamp()
         })
       })
       await updateList.forEach((image) => {
-        updateDoc(doc(db, col, uuid, "images", image._id), {
+        updateDoc(doc(db, "albums", uuid, "images", image._id), {
           _id: deleteField()
         })
       })
-     
+
       setIsSuccess(true)
       setIsMutating(false)
     } catch (e) {

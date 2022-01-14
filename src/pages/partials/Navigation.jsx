@@ -31,12 +31,6 @@ const Navigation = () => {
                   <NavLink to="/" className="dropdown-item">
                     Alubms
                   </NavLink>
-                  <NavLink
-                    to="/customer-review-albums"
-                    className="dropdown-item"
-                  >
-                    Reviews
-                  </NavLink>
                   <NavDropdown.Divider />
                   <NavLink to="/logout" className="dropdown-item ">
                     Log Out

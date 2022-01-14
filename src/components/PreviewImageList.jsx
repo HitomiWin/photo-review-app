@@ -40,10 +40,10 @@ const PreviewImageList = ({ albumId }) => {
     .map(({ image }) => image);
 
   const handleSubmit = async (e) => {
-    const col = "review-albums";
+    const type = "review";
     e.preventDefault();
     try {
-      await submitQuery.mutate({ album, updateList, col });
+      await submitQuery.mutate({ album, updateList, type });
       setShowMessage(true);
     } catch (e) {
       console.log(e);
