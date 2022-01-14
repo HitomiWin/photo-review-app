@@ -1,22 +1,8 @@
-import {
-  useState
-} from "react"
-import {
-  doc,
-  setDoc,
-  updateDoc,
-  deleteField,
-  serverTimestamp
-} from "firebase/firestore"
-import {
-  useAuthContext
-} from "../contexts/AuthContext"
-import {
-  db
-} from "../firebase"
-import {
-  v4 as uuidv4
-} from "uuid"
+import { useState } from "react"
+import { doc, setDoc, updateDoc, deleteField, serverTimestamp } from "firebase/firestore"
+import { useAuthContext } from "../contexts/AuthContext"
+import { db } from "../firebase"
+import { v4 as uuidv4 } from "uuid"
 
 const useCreateAlbumWithImages = () => {
   const [error, setError] = useState(null);
@@ -25,16 +11,9 @@ const useCreateAlbumWithImages = () => {
   const [isSuccess, setIsSuccess] = useState(null);
   const uuid = uuidv4()
   const uuid2 = uuidv4()
-  const {
-    currentUser
-  } = useAuthContext()
+  const { currentUser } = useAuthContext()
 
-  const mutate = async ({
-    name,
-    album,
-    updateList,
-    type
-  }) => {
+  const mutate = async ({ name, album, updateList, type }) => {
     setError(null)
     setIsError(null)
     setIsSuccess(null)

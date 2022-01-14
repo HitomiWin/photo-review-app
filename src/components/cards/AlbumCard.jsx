@@ -29,7 +29,7 @@ const AlbumCard = ({ album }) => {
 
       <Col sm={10} md={4} lg={3} className="my-3 ml-auto">
         <Card>
-          <Card.Header>
+          <Card.Header className="d-flex justify-content-between">
             <span className="album-filename" title={album.name}>
               {album.name}
             </span>
